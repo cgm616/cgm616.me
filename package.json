@@ -1,0 +1,29 @@
+{
+  "name": "cgm616.me",
+  "private": true,
+  "dependencies": {
+    "handlebars": "^4.0.5",
+    "metalsmith": "^2.1.0",
+    "metalsmith-autoprefixer": "^1.1.1",
+    "metalsmith-branch": "0.0.5",
+    "metalsmith-collections": "^0.9.0",
+    "metalsmith-drafts": "0.0.1",
+    "metalsmith-feed": "^0.3.0",
+    "metalsmith-headings-identifier": "0.0.11",
+    "metalsmith-html-minifier": "^2.2.0",
+    "metalsmith-inline-source": "^1.0.6",
+    "metalsmith-layouts": "^1.4.1",
+    "metalsmith-markdown": "^0.2.1",
+    "metalsmith-nested": "^0.3.8",
+    "metalsmith-permalinks": "^0.5.0",
+    "metalsmith-serve": "0.0.7",
+    "metalsmith-typography": "^0.1.1",
+    "metalsmith-updated": "^0.1.6",
+    "metalsmith-watch": "^1.0.3",
+    "metalsmith-word-count": "0.0.4",
+    "metalsmith-writemetadata": "^0.4.5"
+  },
+  "devDependencies": {
+    "metalsmith-date-formatter": "^1.0.2"
+  }
+}
