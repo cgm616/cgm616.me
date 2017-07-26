@@ -34,8 +34,7 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   .destination('./build')     // specify destination directory
   .use(watch({
       paths: {
-        "nested/**/*": "**/*.md",
-        "${source}/**/*": true,
+        "**/*.*": "**/*",
       },
     })
   )
