@@ -27,19 +27,24 @@ Y88b.   Y88b 888 888  888  888 Y88b  d88P   888  Y88b  d88P
     <li><a href="/gallery">gallery</a></li>
   </ul>
   </header>
+
   <div class="line"></div> 
+
   <ul class="post-list">
   {{#each collections.articles }}
-  <li><a href="/{{ this.path }}">{{ this.created }}: {{ this.title }}</a></li> 
+  <li><a href="/{{ this.path }}/">{{ this.created }}: {{ this.title }}</a></li> 
   {{/each }}
   </ul>
+
   <div class="line"></div>
 
   {{{ contents }}}
 
   <div class="line"></div>
+
   <footer>
     (c) 2017 cgm616
   </footer>
+
 </body>
 </html>
