@@ -2,16 +2,37 @@ body {
   margin: 1rem auto;
   max-width: 40rem;
   padding: 0 0.62rem;
-  font-family: Georgia, serif;
+  font-family: "Palatino Linotype", Palatino, serif;
   font-size: 1.2rem;
   line-height: 1.6rem;
-  background-color: #ffe8c2;
+  background-color: #FFF3DF;
   color: #000000;
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.nav-list {
+  font-family: monospace;
+  list-style-type: none;
+  line-height:1.8rem;
+  text-align: right;
+  margin-top: 1rem;
+  padding-right: 3%;
 }
 
 .post-list {
   list-style-type: none;
   padding-left: 0;
+  font-size: 1.2rem;
+}
+
+ul {
+  list-style-type: symbols(cyclic "~");
+  padding-left: 1em;
 }
 
 a {
@@ -23,7 +44,7 @@ a:link {
 }
 
 a:visited {
-  color: #f0a868;
+  color: #9B6100
 }
 
 .info {
@@ -60,7 +81,10 @@ h1, h2, h3 {
   font-size: 0.6rem;
   line-height: 0.6rem;
   white-space: pre;
-  margin: 3rem auto 1rem auto;
+}
+
+header .ascii {
+  margin-top: 1rem;
 }
 
 .line {
@@ -79,3 +103,4 @@ footer {
   font-size: 0.9rem;
   margin-top: 0.8rem;
 }
+
