@@ -1,4 +1,5 @@
 var Metalsmith = require('metalsmith');
+var msIf = require('metalsmith-if');
 var markdown = require('metalsmith-markdown');
 var layouts = require('metalsmith-layouts');
 var permalinks = require('metalsmith-permalinks');
@@ -22,6 +23,14 @@ var dates = require('metalsmith-date-formatter');
 var fs = require('fs')
 var path = require('path')
 
+var shouldServe = false;
+
+process.argv.forEach(function(arg) {
+  if(arg === "serve") {
+    shouldServe = true;
+  }
+});
+
 Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   .metadata({
     title: "cgm616",
@@ -32,13 +41,15 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   })
   .source('./src')        // specify source directory
   .destination('./build')     // specify destination directory
-  .use(watch({
+  .use(msIf(
+    shouldServe,
+    watch({
       paths: {
         "**/*.*": "**/*",
       },
     })
-  )
-  .use(serve())
+  ))
+  .use(msIf(shouldServe, serve()))
   .use(drafts())
   .use(collections({
     articles: 'articles/*.md'
