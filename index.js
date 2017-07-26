@@ -45,7 +45,8 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
     shouldServe,
     watch({
       paths: {
-        "**/*.*": "**/*",
+        "nested/**/*.*": "**/*",
+        "${source}/**/*.*": "**/*",
       },
     })
   ))
@@ -69,10 +70,15 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
     collection: 'articles'
   }))
   .use(permalinks())
-  .use(nested())
-  .use(layouts({               // wrap a handlebars-layout
-    engine: 'handlebars'       // around transpiled html-files
+  .use(nested({
+    directory: 'nested',
+    generated: 'layouts'
+  }))
+  .use(layouts({
+    engine: 'handlebars',
+    directory: 'layouts'
   })) 
+  .use(nested())
   .use(branch('index.html').use(inline({
     compress: true,
     rootpath: path.resolve('src/'),
