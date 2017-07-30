@@ -9,22 +9,23 @@
     "metalsmith-collections": "^0.9.0",
     "metalsmith-drafts": "0.0.1",
     "metalsmith-feed": "^0.3.0",
+    "metalsmith-fingerprint-ignore": "^2.0.0",
     "metalsmith-headings-identifier": "0.0.11",
     "metalsmith-html-minifier": "^2.2.0",
     "metalsmith-if": "^0.1.1",
+    "metalsmith-ignore": "^0.1.2",
     "metalsmith-inline-source": "^1.0.6",
     "metalsmith-layouts": "^1.4.1",
     "metalsmith-markdown": "^0.2.1",
+    "metalsmith-metallic": "^2.0.1",
     "metalsmith-nested": "^0.3.8",
     "metalsmith-permalinks": "^0.5.0",
     "metalsmith-serve": "0.0.7",
-    "metalsmith-typography": "^0.1.1",
+    "metalsmith-uglify": "^1.5.2",
     "metalsmith-updated": "^0.1.6",
     "metalsmith-watch": "^1.0.3",
     "metalsmith-word-count": "0.0.4",
-    "metalsmith-writemetadata": "^0.4.5"
-  },
-  "devDependencies": {
+    "metalsmith-writemetadata": "^0.4.5",
     "metalsmith-date-formatter": "^1.0.2"
   }
 }

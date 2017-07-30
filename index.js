@@ -11,7 +11,6 @@ var feed = require('metalsmith-feed');
 var watch = require('metalsmith-watch');
 var serve = require('metalsmith-serve');
 var minifier = require('metalsmith-html-minifier');
-var typography = require('metalsmith-typography');
 var branch = require('metalsmith-branch');
 var inline = require('metalsmith-inline-source');
 var anchors = require("metalsmith-headings-identifier");
@@ -19,6 +18,7 @@ var wordcount = require("metalsmith-word-count");
 var nested = require('metalsmith-nested');
 var writemetadata = require('metalsmith-writemetadata');
 var dates = require('metalsmith-date-formatter');
+var ignore = require('metalsmith-ignore');
 
 var fs = require('fs')
 var path = require('path')
@@ -52,10 +52,12 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   ))
   .use(msIf(shouldServe, serve()))
   .use(drafts())
+  .use(ignore(['**/.*.*.swp', '**/.*.*.swo']))
   .use(collections({
     articles: 'articles/*.md'
   }))
   .use(markdown())
+  .use(permalinks({relative: false}))
   .use(updated())
   .use(dates({
     dates: [
@@ -69,7 +71,6 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   .use(feed({
     collection: 'articles'
   }))
-  .use(permalinks())
   .use(nested({
     directory: 'nested',
     generated: 'layouts'
@@ -78,7 +79,6 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
     engine: 'handlebars',
     directory: 'layouts'
   })) 
-  .use(nested())
   .use(branch('index.html').use(inline({
     compress: true,
     rootpath: path.resolve('src/'),
@@ -89,7 +89,6 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   //       , bufferencoding: 'utf8'        // also put 'content' into .json
   // }))
   .use(anchors())
-  .use(autoprefixer())
   .use(minifier())
   .build(function(err) {       // this is the actual build process
     if (err) throw err;    // throwing errors is required
