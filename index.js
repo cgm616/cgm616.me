@@ -71,6 +71,7 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   .use(feed({
     collection: 'articles'
   }))
+  .use(autoprefixer())
   .use(nested({
     directory: 'nested',
     generated: 'layouts'
