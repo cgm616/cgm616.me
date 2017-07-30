@@ -19,6 +19,7 @@ var nested = require('metalsmith-nested');
 var writemetadata = require('metalsmith-writemetadata');
 var dates = require('metalsmith-date-formatter');
 var ignore = require('metalsmith-ignore');
+var metallic = require('metalsmith-metallic');
 
 var fs = require('fs')
 var path = require('path')
@@ -56,6 +57,7 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   .use(collections({
     articles: 'articles/*.md'
   }))
+  .use(metallic())
   .use(markdown())
   .use(permalinks({relative: false}))
   .use(updated())
