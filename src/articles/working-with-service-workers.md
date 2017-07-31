@@ -1,5 +1,5 @@
 ---
-title: Working with service workers and metalsmith
+title: Working with service workers
 layout: article.html
 collection: articles
 date: 2017-07-30
