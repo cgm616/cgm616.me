@@ -1,4 +1,4 @@
-var CACHE = "v3";
+var CACHE = "v0.0.13";
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
@@ -56,8 +56,10 @@ self.addEventListener('message', event => {
   event.waitUntil(
     caches.open(CACHE).then(cache => {
       return fetch(event.data.url).then(response => {
-        console.log("got data");
+        console.log("[message] got data");
         return cache.put(event.data.url, response);
+      }).catch(err => { 
+        console.log("[message] couldn't refresh cache from network", err);
       });
     })
   );
