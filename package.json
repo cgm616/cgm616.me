@@ -2,6 +2,7 @@
   "name": "cgm616.me",
   "private": true,
   "dependencies": {
+    "csso": "^3.1.1",
     "handlebars": "^4.0.5",
     "metalsmith": "^2.1.0",
     "metalsmith-autoprefixer": "^1.1.1",
@@ -26,5 +27,7 @@
     "metalsmith-watch": "^1.0.3",
     "metalsmith-word-count": "0.0.4",
     "metalsmith-writemetadata": "^0.4.5",
+    "multimatch": "^2.1.0",
+    "uglify-es": "^3.0.27"
   }
 }

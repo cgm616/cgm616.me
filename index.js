@@ -18,10 +18,13 @@ var nested = require('metalsmith-nested');
 var writemetadata = require('metalsmith-writemetadata');
 var dates = require('metalsmith-date-formatter');
 var ignore = require('metalsmith-ignore');
+var uglify = require('uglify-es');
+var multimatch = require('multimatch');
 var metallic = require('metalsmith-metallic');
+var csso = require('csso');
 
-var fs = require('fs')
-var path = require('path')
+var fs = require('fs');
+var path = require('path');
 
 var shouldServe = false;
 
@@ -30,6 +33,30 @@ process.argv.forEach(function(arg) {
     shouldServe = true;
   }
 });
+
+function metalsmithJsUglify(pattern) {
+  return function(files, metalsmith, done){
+    setImmediate(done);
+    Object.keys(files).forEach(function(file){
+      if(multimatch([file], pattern).indexOf(file) !== -1) {
+        var newContents = uglify.minify(files[file].contents.toString()).code;
+        files[file].contents = Buffer.from(newContents);
+      }
+    });
+  };
+}
+
+function metalsmithCssUglify(pattern) {
+  return function(files, metalsmith, done) {
+    setImmediate(done);
+    Object.keys(files).forEach(file => {
+      if(multimatch([file], pattern).indexOf(file) !== -1) {
+        var newContents = csso.minify(files[file].contents.toString()).css;
+        files[file].contents = Buffer.from(newContents);
+      }
+    });
+  };
+}
 
 Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   .metadata({
@@ -72,6 +99,8 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
     collection: 'articles'
   }))
   .use(autoprefixer())
+  .use(metalsmithJsUglify(['**/*.js']))
+  .use(metalsmithCssUglify(['**/*.css']))
   .use(nested({
     directory: 'nested',
     generated: 'layouts'
