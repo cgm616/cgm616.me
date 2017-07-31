@@ -9,9 +9,6 @@ pages:
   script:
   - make node_modules
   - make
-  - mkdir .public
-  - cp -r src/* .public
-  - mv .public public
   artifacts:
     paths:
     - public

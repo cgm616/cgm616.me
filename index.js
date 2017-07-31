@@ -67,7 +67,7 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
     },
   })
   .source('./src')        // specify source directory
-  .destination('./build')     // specify destination directory
+  .destination('./public')     // specify destination directory
   .use(msIf(
     shouldServe,
     watch({
