@@ -6,7 +6,6 @@ var permalinks = require('metalsmith-permalinks');
 var autoprefixer = require('metalsmith-autoprefixer');
 var collections = require('metalsmith-collections');
 var drafts = require('metalsmith-drafts');
-var updated = require('metalsmith-updated');
 var feed = require('metalsmith-feed');
 var watch = require('metalsmith-watch');
 var serve = require('metalsmith-serve');
@@ -60,11 +59,10 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   .use(metallic())
   .use(markdown())
   .use(permalinks({relative: false}))
-  .use(updated())
   .use(dates({
     dates: [
       {
-        key: 'created',
+        key: 'date',
         format: 'MMMM Do YYYY'
       }
     ]
