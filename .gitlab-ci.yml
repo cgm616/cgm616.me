@@ -1,0 +1,19 @@
+image: node:4.2.2
+
+cache:
+  paths:
+  - node_modules/
+
+pages:
+  stage: deploy
+  script:
+  - make node_modules
+  - make
+  - mkdir .public
+  - cp -r src/* .public
+  - mv .public public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
