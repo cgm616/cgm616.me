@@ -105,6 +105,10 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
     directory: 'nested',
     generated: 'layouts'
   }))
+  .use(anchors({
+    headingClass: 'anchor',
+    linkTemplate: "<a class='anchor' href='#%s'><span></span></a>"
+  }))
   .use(layouts({
     engine: 'handlebars',
     directory: 'layouts'

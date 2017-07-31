@@ -4,7 +4,7 @@ body {
   padding: 0 0.62rem;
   font-family: "Palatino Linotype", Palatino, serif;
   font-size: 1.2rem;
-  line-height: 1.6rem;
+  line-height: 1.8rem;
   background-color: #FFF3DF;
   color: #000000;
 }
@@ -93,8 +93,9 @@ h1.title {
   margin-top: 0.5rem;
 }
 
-h1, h2, h3 {
-  line-height: 1.2rem;
+h1, h2, h3, h4 {
+  line-height: 1.4rem;
+  position: relative; 
 }
 
 .ascii {
@@ -136,4 +137,27 @@ code {
 pre code {
   font-size: 1rem;
   line-height: 1.2rem;
+}
+
+.anchor {
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  color: #000;
+}
+
+.anchor:hover {
+  color:#666;
+}
+
+h1:hover .anchor span:before,
+h2:hover .anchor span:before,
+h3:hover .anchor span:before,
+h4:hover .anchor span:before {
+  content:"Δ";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  color: #666;
 }
