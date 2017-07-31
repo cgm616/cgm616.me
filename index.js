@@ -122,7 +122,6 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   //       , ignorekeys: ['next', 'previous']
   //       , bufferencoding: 'utf8'        // also put 'content' into .json
   // }))
-  .use(anchors())
   .use(minifier())
   .build(function(err) {       // this is the actual build process
     if (err) throw err;    // throwing errors is required
