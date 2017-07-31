@@ -17,15 +17,16 @@ __Really fast__.
 This post is intended to be a short writeup of my efforts.
 
 ## Sending less stuff
-The first part of making a fast website is to reduce the bytes that are sent to the browser.
-For me, this meant keeping my pages small and my styles lightweight.
-My main handlebars layout is only 50 lines of html, including the header, navigation, and footer.
+The first part of making a fast website is reducing the bytes that are sent to the browser.
+This meant keeping my pages small and my styles lightweight.
+My main handlebars layout (read: base html) is only 50 lines of html, including the header, navigation, and footer.
 
 I started with a few styles based on readability from [this wonderfully named website](https://thebestmotherfucking.website/) and then expanded from there to fit my site.
-No frameworks or resets, so no unused styles and no bloated html to fit something designed for a heavier website.
+I'm not using any frameworks or resets, so there are no unused styles.
+This also makes designing my html easier, especially for such a simple site.
 I'm not against frameworks, but for raw speed, I've found it's best to write my own styles.
 
-For example, the css stylesheet is a mere 2.01 kb when minified!
+For example, the css stylesheet is a mere 2.01 kb when minified.
 In comparison, this text is a whole order of mangnitude more than that. 
 All of the resources are also minified along the metalsmith pipeline to make sure that the minimum number of bytes possible are sent.
 
