@@ -78,7 +78,7 @@ self.addEventListener('install', function(event) {
 });
 ```
 
-The main second of this code is `cache.addAll([...])`: it loads the javascript, the main stylesheet, and the stylesheet for code highlighting.
+The main section of this code is `cache.addAll([...])`: it loads the javascript, the main stylesheet, and the stylesheet for code highlighting.
 
 If you aren't familiar with javascript, [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) are a key new language feature that underpin much of the new [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
 Basically, a Promise is exactly what it sounds like: a promise of a value, sometime in the future.
