@@ -1,5 +1,5 @@
 ---
-layout: layout.html
+layout: page.html
 ---
 
 ## Uh oh!
