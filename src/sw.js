@@ -7,7 +7,8 @@ self.addEventListener('install', function(event) {
       return cache.addAll([
         '/js/app.js',
         '/css/main.css',
-        '/css/highlight-default.css'
+        '/css/highlight-default.css',
+        '/offline/index.html'
       ]);
     }).then(function() {
       console.log("[install] cache preloaded");
@@ -16,12 +17,12 @@ self.addEventListener('install', function(event) {
   );
 });
 
-function promiseAny(promises) {
+function promiseAny(promises, fallback) {
   return new Promise((resolve, reject) => {
     promises = promises.map(p => Promise.resolve(p));
     promises.forEach(p => p.then(resolve));
     promises.reduce((a, b) => a.catch(() => b))
-      .catch(() => reject(Error("All failed")));
+      .catch(() => resolve(fallback));
   });
 };
 
@@ -46,7 +47,7 @@ self.addEventListener('fetch', function(event) {
             return Promise.reject('network request failed');
           }
         }),
-      ]);
+      ], cache.match("/offline/index.html"));
     })
   );
 });
