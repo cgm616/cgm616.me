@@ -166,7 +166,7 @@ There is no php processing to be done before sending the client the files, and n
 
 It actually feels a little nice to go back to web basics.
 I'm working on a complicated Rust backend and Elm frontend website and while it's fun, it's complicated.
-Elm is fairly new to me, and while I'm a little more experiences with Rust I've never designed and built a server backend before.
+Elm is fairly new to me, and while I'm a little more experienced with Rust I've never designed and built a server backend before.
 In addition, due to using an entirely javascript-based DOM, it's way more complicated from download to first paint than this webpage.
 
 Anyways, this website is simple files.
