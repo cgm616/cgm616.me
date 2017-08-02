@@ -15,10 +15,11 @@ Other interests of mine are soccer, photograpy/videography, and reading.
 - [VolumeBar9](https://github.com/cgm616/VolumeBar9), a refined volume hud for jailbroken iOS devices
 - [mice](http://mice.cgm616.me/), an open-source (and outdated) comparison of mouse specs
 - [huffman-rs](https://github.com/cgm616/huffman-rs), a toy implementation of a huffman tree in rust
-- [cgm616.me](https://github.com/cgm616/cgm616.me), the code for this website!
+- [cgm616.me](https://gitlab.com/cgm616/cgm616.me), the code for this website!
 - [Pupil](https://pupilme.com), a peer-tutoring service for high school students
 - [Sophocles](https://cgm616.me/downloads/sophocles.zip), a handwritten font based off the writing of a friend
 
 ### My bookmarks list
-- 
--
+- [Structure and Interpretation of Computer Programs](https://sarabander.github.io/sicp/html/index.xhtml#Top), a great book 
+- [cr.yp.to blog](https://blog.cr.yp.to/index.html), the personal blog of crypto expert DJB
+- [what happens when...](https://github.com/alex/what-happens-when/blob/master/README.rst) google.com is typed into your browser address bar?
