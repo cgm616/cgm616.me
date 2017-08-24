@@ -68,6 +68,7 @@ self.addEventListener('install', function(event) {
       return cache.addAll([
         '/js/app.js',
         '/css/main.css',
+        '/css/highlight-default.css',
         '/offline/index.html'
       ]);
     }).then(function() {
