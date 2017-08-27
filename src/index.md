@@ -21,5 +21,6 @@ Other interests of mine are soccer, photograpy/videography, and reading.
 
 ### My bookmarks list
 - [Structure and Interpretation of Computer Programs](https://sarabander.github.io/sicp/html/index.xhtml#Top), a great book 
-- [cr.yp.to blog](https://blog.cr.yp.to/index.html), the personal blog of crypto expert DJB
-- [what happens when...](https://github.com/alex/what-happens-when/blob/master/README.rst) google.com is typed into your browser address bar?
+- [cr.yp.to blog](https://blog.cr.yp.to/index.html), the personal blog of crypto expert DJB (and partial inspiration for this website)
+- [what happens when](https://github.com/alex/what-happens-when/blob/master/README.rst) google.com is typed into your browser address bar?
+- [Astrobiology at NASA](https://astrobiology.nasa.gov/about/), quite possibly the coolest career ever

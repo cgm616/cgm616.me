@@ -170,7 +170,7 @@ I'm working on a complicated Rust backend and Elm frontend website and while it'
 Elm is fairly new to me, and while I'm a little more experienced with Rust I've never designed and built a server backend before.
 In addition, due to using an entirely javascript-based DOM, it's way more complicated from download to first paint than this webpage.
 
-Anyways, this website is simple files.
+Anyways, this website is simply a few files.
 Nothing to do before sending them to the user, so it's speedy quick.
 
 ## Conclusions
