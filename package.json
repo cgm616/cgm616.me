@@ -17,7 +17,7 @@
     "metalsmith-if": "^0.1.1",
     "metalsmith-ignore": "^1.0.0",
     "metalsmith-inline-source": "^1.0.6",
-    "metalsmith-layouts": "^1.4.1",
+    "metalsmith-layouts": "^2.3.0",
     "metalsmith-markdown": "^0.2.2",
     "metalsmith-metallic": "^2.0.2",
     "metalsmith-nested": "^0.3.8",
