@@ -27,7 +27,7 @@ This also makes designing my html easier, especially for such a simple site.
 I'm not against frameworks, but for raw speed, I've found it's best to write my own styles.
 
 For example, the css stylesheet is a mere 2.01 kb when minified.
-In comparison, this text is a whole order of mangnitude more than that. 
+In comparison, this text is a whole order of magnitude more than that. 
 All of the resources are also minified along the metalsmith pipeline to make sure that the minimum number of bytes possible are sent.
 
 Despite using no responsive web framework, the site works on all reasonably-sized devices simply by reflowing the text.
