@@ -21,7 +21,7 @@
     "metalsmith-markdown": "^0.2.2",
     "metalsmith-metallic": "^2.0.2",
     "metalsmith-nested": "^0.3.8",
-    "metalsmith-permalinks": "^0.5.0",
+    "metalsmith-permalinks": "^2.0.0",
     "metalsmith-serve": "0.0.7",
     "metalsmith-uglify": "^2.3.2",
     "metalsmith-watch": "^1.0.3",
