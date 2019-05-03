@@ -7,10 +7,7 @@
 <body>
     <script type="text/javascript">
         window.onload = function () {
-            var randomlinks;
-            randomlinks[0] = "https://forms.gle/FUZ27kb6ZKEcHkmU7";
-            randomlinks[1] = "https://forms.gle/JTPUc1VbijWZy6xN7";
-            randomlinks[2] = "https://forms.gle/LkBUYVJUNY7GDLHS9";
+            var randomlinks = ["https://forms.gle/FUZ27kb6ZKEcHkmU7", "https://forms.gle/JTPUc1VbijWZy6xN7", "https://forms.gle/LkBUYVJUNY7GDLHS9"];
             var x = Math.floor((Math.random() * 3) + 1);
             var random = randomlinks[x];
             window.location = random;
