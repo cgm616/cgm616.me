@@ -13,7 +13,7 @@
     "metalsmith-feed": "^1.0.0",
     "metalsmith-fingerprint-ignore": "^2.0.0",
     "metalsmith-headings-identifier": "0.0.11",
-    "metalsmith-html-minifier": "^3.0.3",
+    "metalsmith-html-minifier": "^4.0.0",
     "metalsmith-if": "^0.1.1",
     "metalsmith-ignore": "^1.0.0",
     "metalsmith-inline-source": "^1.0.6",
