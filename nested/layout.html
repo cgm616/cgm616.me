@@ -1,15 +1,17 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>{{ title }}</title>
   <meta name="description" content="{{ description }}">
-  <script inline src="/js/app.js" ></script>
+  <script inline src="/js/app.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link inline href="/css/main.css" rel="stylesheet" type="text/css">
   <link rel="icon" type="image/png" href="/favicon.ico">
   <link inline href="/css/highlight-default.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
   <header>
     <pre class="ascii">
@@ -25,23 +27,25 @@ Y88b.   Y88b 888 888  888  888 Y88b  d88P   888  Y88b  d88P
         Y8b d88P                                            
          "Y88P"                                             
     </pre>
-  <ul class="nav-list">
-    <li><a href="/">home</a></li>
-    <li><a href="/gallery/">gallery</a></li>
-  </ul>
+    <ul class="nav-list">
+      <li><a href="/">home</a></li>
+      <li><a href="/gallery/">gallery</a></li>
+    </ul>
   </header>
-
-  <div class="line"></div> 
-
-  <ul class="post-list">
-  {{#each collections.articles }}
-  <li><a href="/{{ this.path }}/">{{ this.date }}: {{ this.title }}</a></li> 
-  {{/each }}
-  </ul>
 
   <div class="line"></div>
 
   {{{ contents }}}
+
+  <div class="line"></div>
+
+  <h2>Articles and posts</h2>
+
+  <ul class="post-list">
+    {{#each collections.articles }}
+    <li><a href="/{{ this.path }}/">{{ this.date }}: {{ this.title }}</a></li>
+    {{/each }}
+  </ul>
 
   <div class="line"></div>
 
@@ -50,4 +54,5 @@ Y88b.   Y88b 888 888  888  888 Y88b  d88P   888  Y88b  d88P
   </footer>
 
 </body>
+
 </html>
