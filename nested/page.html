@@ -5,3 +5,11 @@ layout: layout.html
 <article>
   {{{ contents }}}
 </article>
+
+<div class="line"></div>
+
+<ul class="post-list">
+  {{#each collections.articles }}
+  <li><a href="/{{ this.path }}/">{{ this.date }}: {{ this.title }}</a></li>
+  {{/each }}
+</ul>
