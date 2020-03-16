@@ -23,7 +23,7 @@
     "metalsmith-nested": "^0.3.8",
     "metalsmith-permalinks": "^2.2.0",
     "metalsmith-serve": "0.0.7",
-    "metalsmith-uglify": "^2.3.3",
+    "metalsmith-uglify": "^2.3.4",
     "metalsmith-watch": "^1.0.3",
     "metalsmith-word-count": "0.0.4",
     "metalsmith-writemetadata": "^0.4.5",
