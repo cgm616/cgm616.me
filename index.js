@@ -82,9 +82,10 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   .use(drafts())
   .use(ignore(['**/.*.*.swp', '**/.*.*.swo']))
   .use(collections({
-    articles: 'articles/*.md',
-    sortBy: 'date',
-    reverse: true
+    articles: {
+      sortBy: 'date',
+      reverse: true
+    }
   }))
   .use(metallic())
   .use(markdown())
