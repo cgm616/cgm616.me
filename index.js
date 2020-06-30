@@ -82,7 +82,9 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   .use(drafts())
   .use(ignore(['**/.*.*.swp', '**/.*.*.swo']))
   .use(collections({
-    articles: 'articles/*.md'
+    articles: 'articles/*.md',
+    sortBy: 'date',
+    reverse: true
   }))
   .use(metallic())
   .use(markdown())
@@ -91,7 +93,7 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
     dates: [
       {
         key: 'date',
-        format: 'MMMM Do YYYY'
+        format: 'MMMM DD, YYYY'
       }
     ]
   }))
