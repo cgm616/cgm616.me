@@ -7,6 +7,7 @@
     "metalsmith": "^2.1.0",
     "metalsmith-autoprefixer": "^1.1.2",
     "metalsmith-branch": "0.0.5",
+    "metalsmith-browserify": "^1.1.0",
     "metalsmith-collections": "^0.9.0",
     "metalsmith-date-formatter": "^1.0.2",
     "metalsmith-drafts": "1.0.0",
@@ -28,6 +29,7 @@
     "metalsmith-word-count": "0.0.4",
     "metalsmith-writemetadata": "^0.4.5",
     "multimatch": "^4.0.0",
+    "twgl.js": "^4.15.2",
     "uglify-es": "^3.3.9"
   }
 }

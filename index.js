@@ -6,6 +6,7 @@ var permalinks = require('metalsmith-permalinks');
 var autoprefixer = require('metalsmith-autoprefixer');
 var collections = require('metalsmith-collections');
 var drafts = require('metalsmith-drafts');
+var browserify = require('metalsmith-browserify');
 var feed = require('metalsmith-feed');
 var watch = require('metalsmith-watch');
 var serve = require('metalsmith-serve');
@@ -28,17 +29,17 @@ var path = require('path');
 
 var shouldServe = false;
 
-process.argv.forEach(function(arg) {
-  if(arg === "serve") {
+process.argv.forEach(function (arg) {
+  if (arg === "serve") {
     shouldServe = true;
   }
 });
 
 function metalsmithJsUglify(pattern) {
-  return function(files, metalsmith, done){
+  return function (files, metalsmith, done) {
     setImmediate(done);
-    Object.keys(files).forEach(function(file){
-      if(multimatch([file], pattern).indexOf(file) !== -1) {
+    Object.keys(files).forEach(function (file) {
+      if (multimatch([file], pattern).indexOf(file) !== -1) {
         var newContents = uglify.minify(files[file].contents.toString()).code;
         files[file].contents = Buffer.from(newContents);
       }
@@ -47,10 +48,10 @@ function metalsmithJsUglify(pattern) {
 }
 
 function metalsmithCssUglify(pattern) {
-  return function(files, metalsmith, done) {
+  return function (files, metalsmith, done) {
     setImmediate(done);
     Object.keys(files).forEach(file => {
-      if(multimatch([file], pattern).indexOf(file) !== -1) {
+      if (multimatch([file], pattern).indexOf(file) !== -1) {
         var newContents = csso.minify(files[file].contents.toString()).css;
         files[file].contents = Buffer.from(newContents);
       }
@@ -85,7 +86,7 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   }))
   .use(metallic())
   .use(markdown())
-  .use(permalinks({relative: false}))
+  .use(permalinks({ relative: false }))
   .use(dates({
     dates: [
       {
@@ -112,7 +113,7 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   .use(layouts({
     engine: 'handlebars',
     directory: 'layouts'
-  })) 
+  }))
   .use(branch('index.html').use(inline({
     compress: true,
     rootpath: path.resolve('src/'),
@@ -123,6 +124,6 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
   //       , bufferencoding: 'utf8'        // also put 'content' into .json
   // }))
   .use(minifier())
-  .build(function(err) {       // this is the actual build process
+  .build(function (err) {       // this is the actual build process
     if (err) throw err;    // throwing errors is required
   });
