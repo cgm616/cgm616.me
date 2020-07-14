@@ -69,14 +69,8 @@ header {
   }
 }
 
-.post-list {
-  list-style-type: none;
-  padding-left: 0;
-  font-size: 1.2rem;
-}
-
 ul {
-  list-style-type: symbols(cyclic "~");
+  list-style-type: symbols(cyclic "⬢");
   padding-left: 1em;
 }
 

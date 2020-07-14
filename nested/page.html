@@ -8,7 +8,9 @@ layout: layout.html
 
 <div class="line"></div>
 
-<ul class="post-list">
+<h3>Blog posts</h3>
+
+<ul>
   {{#each collections.articles }}
   <li><a href="/{{ this.path }}/">{{ this.date }}: {{ this.title }}</a></li>
   {{/each }}
