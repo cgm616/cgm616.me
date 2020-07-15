@@ -2,22 +2,28 @@
 layout: page.html
 ---
 
-Welcome to my website! My name is Cole Graber-Mitchell (cgm616) and I'm a college
-student at Amherst College in Massachusetts, originally from Minneapolis,
+Welcome to my website! My name is Cole Graber-Mitchell (cgm616) and I'm a
+student at Amherst College in Massachusetts. I'm originally from Minneapolis,
 Minnesota.
 
-I enjoy politics, programming, and problem solving. I'm most comfortable in the
-Rust programming language, but I occasionally dabble in others as well. Other than
-my main interests, I also have fun with photography, ukulele, and theatre.
+I enjoy politics, programming, and problem solving. While I haven't managed
+to combine those yet, I love to doorknock and phonebank for progressive causes
+and candidates.
+
+In my free time, I enjoy playing guitar, tweeting angrily into the void, and
+writing columns for Amherst's student newspaper. 
 
 ### Other places I do things
-- [github.com](https://github.com/cgm616)
-- [gitlab.com](https://gitlab.com/cgm616)
-- [keybase.io](https://keybase.io/cgm616/)
-- [linkedin.com](https://www.linkedin.com/in/cgm616)
+- [Twitter](https://twitter.com/cgm616)
+- [GitHub](https://github.com/cgm616)
+- [GitLab](https://gitlab.com/cgm616)
+- [Keybase](https://keybase.io/cgm616/)
+- [LinkedIn](https://www.linkedin.com/in/cgm616)
 
 ### Things I've made
-- [VolumeBar9](https://github.com/cgm616/VolumeBar9), a refined volume hud for jailbroken iOS devices
-- [huffman-rs](https://github.com/cgm616/huffman-rs), a toy implementation of a huffman tree in rust
+- [PasTeX](https://pastex.cgm616.me), a pastebin service that renders LaTeX to make sharing math during Covid-19 easier
+- [InsideOut](https://github.com/cgm616/insideout), a machine learning mood ring for HackHolyoke 2019
+- [Punda](https://github.com/cgm616/punda), an in-progress firmware for the BBC:microbit
+- [calc_rs](http://calc.cgm616.me/), a simple REPL calculator built with Rust and WebAssembly
 - [cgm616.me](https://gitlab.com/cgm616/cgm616.me), the code for this website!
 - [Sophocles](https://cgm616.me/downloads/sophocles.zip), a handwritten font based off the writing of a friend
