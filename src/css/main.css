@@ -70,7 +70,7 @@ header {
 }
 
 ul {
-  list-style-type: symbols(cyclic "⬢");
+  list-style-type: symbols(cyclic "◰" "◳" "◲" "◱");
   padding-left: 1em;
 }
 
