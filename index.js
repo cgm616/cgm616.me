@@ -22,6 +22,7 @@ var ignore = require('metalsmith-ignore');
 var uglify = require('uglify-es');
 var multimatch = require('multimatch');
 var metallic = require('metalsmith-metallic');
+var transform = require('metalsmith-transform');
 var csso = require('csso');
 
 var fs = require('fs');
@@ -79,6 +80,11 @@ Metalsmith(__dirname)          // instantiate Metalsmith in the cwd
     })
   ))
   .use(msIf(shouldServe, serve()))
+  .use(transform({
+    action: 'prepend',
+    value: 'var CACHE = \"' + (Math.random()*1e32).toString(36) + '\";',
+    pattern: 'sw.js',
+  }))
   .use(drafts())
   .use(ignore(['**/.*.*.swp', '**/.*.*.swo']))
   .use(collections({

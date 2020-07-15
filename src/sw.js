@@ -1,4 +1,3 @@
-var CACHE = "v0.0.13";
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
