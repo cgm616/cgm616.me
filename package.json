@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "csso": "^4.0.3",
-    "handlebars": "^4.7.3",
+    "handlebars": "^4.7.6",
     "metalsmith": "^2.1.0",
     "metalsmith-autoprefixer": "^1.1.2",
     "metalsmith-branch": "0.0.5",
