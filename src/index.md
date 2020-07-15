@@ -23,7 +23,7 @@ writing columns for Amherst's student newspaper.
 ### Things I've made
 - [PasTeX](https://pastex.cgm616.me), a pastebin service that renders LaTeX to make sharing math during Covid-19 easier
 - [InsideOut](https://github.com/cgm616/insideout), a machine learning mood ring for HackHolyoke 2019
-- [Punda](https://github.com/cgm616/punda), an in-progress firmware for the BBC:microbit
+- [Punda](https://github.com/cgm616/punda), an in-progress firmware for the BBC micro:bit
 - [calc_rs](http://calc.cgm616.me/), a simple REPL calculator built with Rust and WebAssembly
 - [cgm616.me](https://gitlab.com/cgm616/cgm616.me), the code for this website!
 - [Sophocles](https://cgm616.me/downloads/sophocles.zip), a handwritten font based off the writing of a friend
