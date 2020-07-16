@@ -52,8 +52,11 @@ header {
   margin-top: 1rem;
 }
 
-.nav-list a:hover {
+.nav-list a {
   text-decoration: none;
+}
+
+.nav-list a:hover {
   background-color: #500bff;
   color: #FEFEFA;
 }
