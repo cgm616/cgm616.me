@@ -13,7 +13,6 @@ article {
   text-align: justify;
 }
 
-
 p {
   -webkit-hyphens: auto;
   -webkit-hyphenate-limit-before: 3;
@@ -55,7 +54,7 @@ header {
 
 .nav-list a:hover {
   text-decoration: none;
-  background-color: #500bff;
+  background-color: #89008D;
   color: #FEFEFA;
 }
 
@@ -81,17 +80,10 @@ ul {
 }
 
 a {
-  text-decoration: none;
-}
-
-a:hover {
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-decoration-thickness: 2px;
-}
-
-a:link {
-  color: #500bff;
+  color: #89008D;
 }
 
 .info {
