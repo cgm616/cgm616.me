@@ -54,7 +54,7 @@ header {
 
 .nav-list a:hover {
   text-decoration: none;
-  background-color: #89008D;
+  background-color: #500bff;
   color: #FEFEFA;
 }
 
@@ -83,7 +83,7 @@ a {
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-decoration-thickness: 2px;
-  color: #89008D;
+  color: #500bff;
 }
 
 .info {
