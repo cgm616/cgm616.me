@@ -53,6 +53,12 @@ header {
   margin-top: 1rem;
 }
 
+.nav-list a:hover {
+  text-decoration: none;
+  background-color: #500bff;
+  color: #FEFEFA;
+}
+
 @media screen and (max-width:480px) {
   .nav-list {
     flex-grow: 1;
@@ -75,6 +81,10 @@ ul {
 }
 
 a {
+  text-decoration: none;
+}
+
+a:hover {
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-decoration-thickness: 2px;
@@ -82,10 +92,6 @@ a {
 
 a:link {
   color: #500bff;
-}
-
-a:visited {
-  color: #713eff;
 }
 
 .info {
