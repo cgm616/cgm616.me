@@ -15,6 +15,6 @@ layout: layout.html
 
 <ul>
   {{#each collections.articles }}
-  <li><a href="/{{ this.path }}/">{{ this.date }}: {{ this.title }}</a></li>
+  <li>{{ this.date }}: <a href="/{{ this.path }}/">{{ this.title }}</a></li>
   {{/each }}
 </ul>
