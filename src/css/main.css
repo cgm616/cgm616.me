@@ -5,7 +5,7 @@ body {
   font-family: "Palatino Linotype", Palatino, serif;
   font-size: 1.2rem;
   line-height: 1.8rem;
-  background-color: #FFF3DF;
+  background-color: #FEFEFA;
   color: #000000;
 }
 
@@ -75,15 +75,19 @@ ul {
 }
 
 a {
-  text-decoration: none;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-color: #70a4ff;
+  text-decoration-thickness: 2px;
 }
 
 a:link {
-  color: #cf5c36;
+  color: #9d70ff;
 }
 
 a:visited {
-  color: #9B6100
+  color: #ad93e6;
+  text-decoration-style: dotted;
 }
 
 .info {
