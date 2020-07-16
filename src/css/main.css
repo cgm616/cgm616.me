@@ -77,17 +77,15 @@ ul {
 a {
   text-decoration-line: underline;
   text-decoration-style: solid;
-  text-decoration-color: #70a4ff;
   text-decoration-thickness: 2px;
 }
 
 a:link {
-  color: #9d70ff;
+  color: #500bff;
 }
 
 a:visited {
-  color: #ad93e6;
-  text-decoration-style: dotted;
+  color: #713eff;
 }
 
 .info {
