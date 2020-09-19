@@ -148,20 +148,6 @@ footer {
   margin-top: 0.8rem;
 }
 
-code {
-  border-radius: 3px;
-  border: 1px solid #7c7c7c;
-  background: #fdf6e3;
-  padding: 1px;
-  font-size: 1.1rem;
-  font-family: "Courier New", Courier, monospace;
-}
-
-pre code {
-  font-size: 1rem;
-  line-height: 1.2rem;
-}
-
 .anchor {
   padding-left: 30px;
   margin-left: -30px;
@@ -201,3 +187,32 @@ object {
 canvas {
   width: 100%;
 }
+
+code {
+  border-radius: 3px;
+  border: 1px solid #7c7c7c;
+  background: #fdf6e3;
+  padding: 1px;
+  font-size: 1.1rem;
+  font-family: "Courier New", Courier, monospace;
+  hyphens: none;
+}
+
+pre code {
+  font-size: 1rem;
+  line-height: 1.2rem;
+}
+
+pre.jupyter-output {
+  font-size: 0.9rem;
+  line-height: 1.1rem;
+  color: #666;
+  padding-left: 1rem;
+  border-left: 3px solid #666;
+}
+
+pre.jupyter-error {
+  color: rgb(173, 68, 68);
+  border-color: rgb(173, 68, 68);
+}
+
