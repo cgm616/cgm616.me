@@ -371,7 +371,7 @@ end
 ```
 
 Computing that took a few seconds, which isn't bad.
-It would be way to slow in practice, though.
+It would be way too slow in practice, though.
 Let's check what we got.
 If we did this right, we should be able to plot the `dft` vector and have peaks at 200, 445, and 672, since those are the frequencies of the data we generated.
 
