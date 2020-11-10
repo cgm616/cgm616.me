@@ -30,7 +30,7 @@
     "metalsmith-word-count": "0.0.4",
     "metalsmith-writemetadata": "^0.4.5",
     "multimatch": "^4.0.0",
-    "twgl.js": "^4.15.2",
+    "twgl.js": "^4.16.3",
     "uglify-es": "^3.3.9"
   }
 }
