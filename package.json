@@ -2,7 +2,7 @@
   "name": "cgm616.me",
   "private": true,
   "dependencies": {
-    "csso": "^4.0.3",
+    "csso": "^4.2.0",
     "handlebars": "^4.7.3",
     "metalsmith": "^2.1.0",
     "metalsmith-autoprefixer": "^1.1.2",
