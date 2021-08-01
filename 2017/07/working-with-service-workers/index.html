@@ -33,7 +33,7 @@ Y88b.   Y88b 888 888  888  888 Y88b  d88P   888  Y88b  d88P
 <div class=info>
 <ul class=flat-list>
 <li>created on Jul. 30, 2017</li>
-<li>1885 words</li>
+<li>1882 words</li>
 <li>14 min long</li>
 </ul>
 </div>
@@ -47,7 +47,10 @@ This one is going to be mostly a discussion about speed.</p>
 I wanted to make this website fast.
 <strong>Really fast</strong>.
 This post is intended to be a short writeup of my efforts.</p>
-<h2 id=sending-less-stuff>Sending less stuff</h2>
+<h2 id=sending-less-stuff class=anchor>
+<a href=https://cgm616.me/2017/07/working-with-service-workers/#sending-less-stuff class=anchor><span></span></a>
+Sending less stuff
+</h2>
 <p>The first part of making a fast website is reducing the bytes that are sent to the browser.
 This meant keeping my pages small and my styles lightweight.
 My main handlebars layout (read: base html) is only 50 lines of html, including the header, navigation, and footer.</p>
@@ -69,7 +72,10 @@ There are no web fonts loaded, no images, no jQuery: in essence, nothing but wha
 <p>There is one problem with inlining resources on the index page: the browser HTTP cache doesn&rsquo;t get to cache them for future page loads, and I&rsquo;d rather sacrifice initial page load time in order to make movement throughout the site fluid.
 Thankfully, we can get the best of both worlds!
 In order to fix this, the site installs a service worker on supported browsers to cache the stylesheet and javascript before they&rsquo;re needed.</p>
-<h2 id=caching-certain-resources>Caching certain resources</h2>
+<h2 id=caching-certain-resources class=anchor>
+<a href=https://cgm616.me/2017/07/working-with-service-workers/#caching-certain-resources class=anchor><span></span></a>
+Caching certain resources
+</h2>
 <p><a href=https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API>Service workers</a> are a relatively new spec, even with the fast pace of web development.
 They are simply javascript that runs in between the browser and any remote requests made by a webpage.
 They can cache resources on install and can also cache resources on the fly.
@@ -80,7 +86,10 @@ They cannot access the DOM, as they run in their own context, but they can pass 
 More complicated service workers can receive push notifications from the server, show them to the user, and wake up at certain times to update caches.
 They&rsquo;re new, but very powerful.</p>
 <p>Copying almost wholesale from <a href=https://jakearchibald.com/2014/offline-cookbook/>the offline cookbook</a>, the service worker for this website only does a small subset of what is possible.</p>
-<h3 id=installation-the-first-step>Installation: the first step</h3>
+<h3 id=installation-the-first-step class=anchor>
+<a href=https://cgm616.me/2017/07/working-with-service-workers/#installation-the-first-step class=anchor><span></span></a>
+Installation: the first step
+</h3>
 <p>Here&rsquo;s installation code, which preloads the cache with some resources that are needed.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=nx>self</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;install&#39;</span><span class=p>,</span> <span class=kd>function</span><span class=p>(</span><span class=nx>event</span><span class=p>)</span> <span class=p>{</span>
   <span class=nx>event</span><span class=p>.</span><span class=nx>waitUntil</span><span class=p>(</span>
@@ -112,7 +121,10 @@ Next I transform that promise into another, calling <code>self.skipWaiting()</co
 <p>(Actually, this might be a lie. <code>.then()</code> can also be used to just run further code after a Promise resolves, and in this case that&rsquo;s what is used for. However, it seems to me to be more correct to call it a &lsquo;transform.')</p>
 <p>See, that&rsquo;s not so hard!
 Of course, at this point, the service worker hasn&rsquo;t actually done anything useful yet: it still can&rsquo;t respond to requests.</p>
-<h3 id=working-as-a-cache>Working as a cache</h3>
+<h3 id=working class=anchor>
+<a href=https://cgm616.me/2017/07/working-with-service-workers/#working class=anchor><span></span></a>
+Working
+</h3>
 <p>To act as a cache in between requests and the Internet, the service worker needs to register to receive and process <code>onfetch</code> events.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=nx>self</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;fetch&#39;</span><span class=p>,</span> <span class=kd>function</span><span class=p>(</span><span class=nx>event</span><span class=p>)</span> <span class=p>{</span>
   <span class=nx>event</span><span class=p>.</span><span class=nx>respondWith</span><span class=p>(</span>
@@ -165,7 +177,10 @@ No data is saved (another possibility with service workers) but time is reduced 
 <p>You might have noticed the second argument to <code>promiseAny()</code>, which is a generic fallback.
 This&rsquo;ll be expanded in the future to include fallbacks for different types of media, but right now it responds with a general &lsquo;offline&rsquo; page in the case that the network is not responding and the cache has nothing.
 It&rsquo;s nice to have this functionality so I can tell the user their exact situation instead of an obscure error about some Promise being rejected.</p>
-<h2 id=reducing-processing>Reducing processing</h2>
+<h2 id=reducing-processing class=anchor>
+<a href=https://cgm616.me/2017/07/working-with-service-workers/#reducing-processing class=anchor><span></span></a>
+Reducing processing
+</h2>
 <p>The biggest speed up is probably gained by using a static site instead of a server-side blogging platform.
 The entire site is html, css, and some non-DOM-altering javascript, so it&rsquo;s very quick to paint once received.
 There is no php processing to be done before sending the client the files, and no client-side processing to show them.</p>
@@ -175,7 +190,10 @@ Elm is fairly new to me, and while I&rsquo;m a little more experienced with Rust
 In addition, due to using an entirely javascript-based DOM, it&rsquo;s way more complicated from download to first paint than this webpage.</p>
 <p>Anyways, this website is simply a few files.
 Nothing to do before sending them to the user, so it&rsquo;s speedy quick.</p>
-<h2 id=conclusions>Conclusions</h2>
+<h2 id=conclusions class=anchor>
+<a href=https://cgm616.me/2017/07/working-with-service-workers/#conclusions class=anchor><span></span></a>
+Conclusions
+</h2>
 <p>Making a speedy site isn&rsquo;t hard, but it includes some sacrifices.
 No hero images or fancy pure functions to encode my virtual DOM.</p>
 <p>I don&rsquo;t have the experience or expertise to denounce those trends, and I don&rsquo;t intend to.

@@ -33,7 +33,7 @@ Y88b.   Y88b 888 888  888  888 Y88b  d88P   888  Y88b  d88P
 <div class=info>
 <ul class=flat-list>
 <li>created on Sep. 19, 2020</li>
-<li>2569 words</li>
+<li>2570 words</li>
 <li>19 min long</li>
 </ul>
 </div>
@@ -58,7 +58,10 @@ Eventually, I decided that I might as well make it into a blogpost.
 In other words, this is a lightly-edited path through my actual experience using Julia for the first time.
 Most of the content was actually typed while trying out the code.</p>
 <p>Let&rsquo;s get started!</p>
-<h2 id=playing-with-matrices-from-gl2-2>Playing with matrices from \(GL(2, 2)\)</h2>
+<h2 id=playing-with-matrices-from-%5Cgl2-2%5C class=anchor>
+<a href=https://cgm616.me/2020/09/learning-julia/#playing-with-matrices-from-%255Cgl2-2%255C class=anchor><span></span></a>
+Playing with matrices from \(GL(2, 2)\)
+</h2>
 <p>I&rsquo;ve heard that Julia is a good language for matrix manipulation.
 Let&rsquo;s start our exploration by defining some matrices and printing them.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-julia data-lang=julia><span class=n>e</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span> <span class=mi>0</span><span class=p>;</span> <span class=mi>0</span> <span class=mi>1</span><span class=p>]</span>
@@ -83,7 +86,7 @@ Let&rsquo;s start our exploration by defining some matrices and printing them.</
 <p>As you can see, the syntax for all of this is pretty standard.
 While I don&rsquo;t know what much of this means yet, it seems to be working so far.</p>
 <p>You may be asking why I chose to define these relatively simple matrices.
-\(e\), \(A\), and \(B\) are matrices from the \(GL(2, 2)\) group, which consists of all of the 2x2 matrices with entries of 1 or 0 and a determinant that isn&rsquo;t 0.
+The matrices \(e\), \(A\), and \(B\) are from the \(GL(2, 2)\) group, which consists of all of the 2x2 matrices with entries of 1 or 0 and a determinant that isn&rsquo;t 0.
 I&rsquo;m in the middle of learning about \(GL(2, 2)\) in my math course this semester, so I thought it would be a good place to start.
 Fascinatingly, these three elements can generate the <em>entire</em> group through multiplication.
 I bet there&rsquo;s an easier way to do this, but here goes.</p>
@@ -242,7 +245,10 @@ Well, it&rsquo;s actually kind hard to tell that it works, but trust me, it does
 I checked the multiplications to make sure.</p>
 <p>However, I don&rsquo;t actually think that groups are the best possible showcase of Julia&rsquo;s capabilities.
 That was just for me to get used to the syntax.</p>
-<h2 id=discrete-fourier-transform>Discrete Fourier Transform</h2>
+<h2 id=discrete-fourier-transform class=anchor>
+<a href=https://cgm616.me/2020/09/learning-julia/#discrete-fourier-transform class=anchor><span></span></a>
+Discrete Fourier Transform
+</h2>
 <p>Let&rsquo;s try implementing a (super naive) Discrete Fourier Transform algorithm.
 About a year ago, I finished a class on Fourier analysis and we played around with the algorithms in MatLab, so I have a bit of experience, but this will still be a challenge.</p>
 <p>We first need to make a vector of data.
