@@ -1,0 +1,196 @@
+<!doctype html><html lang=en><head>
+<meta charset=utf-8>
+<title>Working with service workers</title>
+<meta name=description content>
+<base href=https://cgm616.me/>
+<script type=text/javascript src=https://cgm616.me/js/app.min.36b4a560238f5940ff4e46b3f7dc011039fececdb80071f885eaecadcb3676e919f6c5a203a32a30acee501e51b69c635a11f6d0c1c60254990bb5f13b10df29.js integrity="sha512-NrSlYCOPWUD/Tkaz99wBEDn+zs24AHH4hersrcs2dukZ9sWiA6MqMKzuUB5RtpxjWhH20MHGAlSZC7XxOxDfKQ=="></script>
+<link inline href=https://cgm616.me/css/main.min.8bef46583d0fd423bba0d40ff98c58d4aff3aaed653edfc0a3226673d7db3db31986561fbe27f81e3d076383e4fd8921c81212f689f9242d28abe4b419b96195.css rel=stylesheet type=text/css integrity="sha512-i+9GWD0P1CO7oNQP+YxY1K/zqu1lPt/AoyJmc9fbPbMZhlYfvif4Hj0HY4Pk/YkhyBIS9on5JC0oq+S0GblhlQ==">
+<link inline href=https://cgm616.me/css/syntax.min.9b2140d4354856ddbf53d7bf66d1438df2a217bf0e194def40d5bbdc440325b798c6bd867a4d5b6e1ff0bcb3efc331645dd7d604f9db8b457a3ebbb0eaa58c1d.css rel=stylesheet type=text/css integrity="sha512-myFA1DVIVt2/U9e/ZtFDjfKiF78OGU3vQNW73EQDJbeYxr2Gek1bbh/wvLPvwzFkXdfWBPnbi0V6Pruw6qWMHQ==">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<link rel=icon type=image/png href=favicon.ico>
+<link rel=canonical href=https://cgm616.me/2017/07/working-with-service-workers/>
+</head><body><header>
+<pre class=ascii>
+                                .d8888b.   d888   .d8888b.  
+                               d88P  Y88b d8888  d88P  Y88b 
+                               888          888  888        
+ .d8888b .d88b.  88888b.d88b.  888d888b.    888  888d888b.  
+d88P"   d88P"88b 888 "888 "88b 888P "Y88b   888  888P "Y88b 
+888     888  888 888  888  888 888    888   888  888    888 
+Y88b.   Y88b 888 888  888  888 Y88b  d88P   888  Y88b  d88P 
+ "Y8888P "Y88888 888  888  888  "Y8888P"  8888888 "Y8888P"  
+             888                                            
+        Y8b d88P                                            
+         "Y88P"                                             
+    </pre>
+<ul class=nav-list>
+<li><a href=https://cgm616.me/>home</a></li>
+<li><a href=https://cgm616.me/gallery/>gallery</a></li>
+</ul>
+</header>
+<div class=line></div><div>
+<h1 class=title>Working with service workers</h1>
+<div class=info>
+<ul class=flat-list>
+<li>created on Jul. 30, 2017</li>
+<li>1885 words</li>
+<li>14 min long</li>
+</ul>
+</div>
+<article>
+<p>Recently I decided to procrastinate working on actual work (projects for school and Pupil) and remake my old jekyll website to something that was less work to maintain and that I actually understood.
+Hence, <a href=http://metalsmith.io>metalsmith</a>.
+It&rsquo;s a static site generator written in Node.js that uses a series of transforms on files to ultimately produce the end result.
+There was somewhat of a learning curve associated with the new tool and language (javascript is new for me), but in a later blog post I&rsquo;ll talk about metalsmith.
+This one is going to be mostly a discussion about speed.</p>
+<p>My primary concern was speed.
+I wanted to make this website fast.
+<strong>Really fast</strong>.
+This post is intended to be a short writeup of my efforts.</p>
+<h2 id=sending-less-stuff>Sending less stuff</h2>
+<p>The first part of making a fast website is reducing the bytes that are sent to the browser.
+This meant keeping my pages small and my styles lightweight.
+My main handlebars layout (read: base html) is only 50 lines of html, including the header, navigation, and footer.</p>
+<p>I started with a few styles based on readability from <a href=https://thebestmotherfucking.website/>this wonderfully named website</a> and then expanded from there to fit my site.
+I&rsquo;m not using any frameworks or resets, so there are no unused styles.
+This also makes designing my html easier, especially for such a simple site.
+I&rsquo;m not against frameworks, but for raw speed, I&rsquo;ve found it&rsquo;s best to write my own styles.</p>
+<p>For example, the css stylesheet is a mere 2.01 kb when minified.
+In comparison, this text is a whole order of magnitude more than that.
+All of the resources are also minified along the metalsmith pipeline to make sure that the minimum number of bytes possible are sent.</p>
+<p>Despite using no responsive web framework, the site works on all reasonably-sized devices simply by reflowing the text.
+I used a single media query to make the navigation links work better.
+There is one caveat: the header ascii art won&rsquo;t change sizes to fit the viewport so on devices with less than 400 pixels of width it can cause horizontal scrolling to occur.
+I could&rsquo;ve fixed this with javascript, but I decided it wasn&rsquo;t worth it for the extra bytes and time to paint.</p>
+<p>Additionally, the index page has no synchronous external resources to load before it can paint!
+It uses the same css and javascript as the other pages, except they are inlined automatically to make the page load with one request.
+There is a metalsmith plugin that does this for me, so it took me almost no effort to include.
+There are no web fonts loaded, no images, no jQuery: in essence, nothing but what is necessary is even included.</p>
+<p>There is one problem with inlining resources on the index page: the browser HTTP cache doesn&rsquo;t get to cache them for future page loads, and I&rsquo;d rather sacrifice initial page load time in order to make movement throughout the site fluid.
+Thankfully, we can get the best of both worlds!
+In order to fix this, the site installs a service worker on supported browsers to cache the stylesheet and javascript before they&rsquo;re needed.</p>
+<h2 id=caching-certain-resources>Caching certain resources</h2>
+<p><a href=https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API>Service workers</a> are a relatively new spec, even with the fast pace of web development.
+They are simply javascript that runs in between the browser and any remote requests made by a webpage.
+They can cache resources on install and can also cache resources on the fly.
+This website does both.</p>
+<p>As a quick primer on service workers, one of their primary uses is responding to <code>onfetch</code> events with a custom response for a given request.
+Often, this response is from the ServiceWorker cache.
+They cannot access the DOM, as they run in their own context, but they can pass messages between pages of the website and receive messages from and send messages to a given page.
+More complicated service workers can receive push notifications from the server, show them to the user, and wake up at certain times to update caches.
+They&rsquo;re new, but very powerful.</p>
+<p>Copying almost wholesale from <a href=https://jakearchibald.com/2014/offline-cookbook/>the offline cookbook</a>, the service worker for this website only does a small subset of what is possible.</p>
+<h3 id=installation-the-first-step>Installation: the first step</h3>
+<p>Here&rsquo;s installation code, which preloads the cache with some resources that are needed.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=nx>self</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;install&#39;</span><span class=p>,</span> <span class=kd>function</span><span class=p>(</span><span class=nx>event</span><span class=p>)</span> <span class=p>{</span>
+  <span class=nx>event</span><span class=p>.</span><span class=nx>waitUntil</span><span class=p>(</span>
+    <span class=nx>caches</span><span class=p>.</span><span class=nx>open</span><span class=p>(</span><span class=nx>CACHE</span><span class=p>).</span><span class=nx>then</span><span class=p>(</span><span class=kd>function</span><span class=p>(</span><span class=nx>cache</span><span class=p>)</span> <span class=p>{</span>
+      <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;[install] successfully running and cache opened to preload&#34;</span><span class=p>);</span>
+      <span class=k>return</span> <span class=nx>cache</span><span class=p>.</span><span class=nx>addAll</span><span class=p>([</span>
+        <span class=s1>&#39;/js/app.js&#39;</span><span class=p>,</span>
+        <span class=s1>&#39;/css/main.css&#39;</span><span class=p>,</span>
+        <span class=s1>&#39;/css/highlight-default.css&#39;</span><span class=p>,</span>
+        <span class=s1>&#39;/offline/index.html&#39;</span>
+      <span class=p>]);</span>
+    <span class=p>}).</span><span class=nx>then</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+      <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;[install] cache preloaded&#34;</span><span class=p>);</span>
+      <span class=nx>self</span><span class=p>.</span><span class=nx>skipWaiting</span><span class=p>();</span>
+    <span class=p>})</span>
+  <span class=p>);</span>
+<span class=p>});</span>
+</code></pre></div><p>The main section of this code is <code>cache.addAll([...])</code>: it loads the javascript, the main stylesheet, and the stylesheet for code highlighting.</p>
+<p>If you aren&rsquo;t familiar with javascript, <a href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise>Promises</a> are a key new language feature that underpin much of the new <a href=https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API>Service Worker API</a>.
+Basically, a Promise is exactly what it sounds like: a promise of a value, sometime in the future.
+They can &lsquo;reject&rsquo; or &lsquo;resolve,&rsquo; giving a value on a resolve and some error or reason on a reject.
+I&rsquo;m still trying to figure out exactly how to use them, but they&rsquo;re a nice abstraction allowing asynchronous code to be written without crazy callbacks.
+In this code sample, you can see them in a bunch of places.
+In particular, <code>caches.open(CACHE)</code> returns a Promise, which could be the only part of the argument to <code>event.waitUntil</code>.
+However, I don&rsquo;t just want to open the cache; I want to add things to it.</p>
+<p>To accomplish that, I can transform that Promise (a promise of a cache) into another Promise by chaining <code>.then(function)</code> onto it.
+That function argument must return another promise: in this case, <code>cache.addAll([...])</code> returns a promise of adding resources to the cache.
+Next I transform that promise into another, calling <code>self.skipWaiting()</code> to immediately take control of the page instead of waiting for a navigation event (in conjunction with <code>self.clients.claim()</code>).</p>
+<p>(Actually, this might be a lie. <code>.then()</code> can also be used to just run further code after a Promise resolves, and in this case that&rsquo;s what is used for. However, it seems to me to be more correct to call it a &lsquo;transform.')</p>
+<p>See, that&rsquo;s not so hard!
+Of course, at this point, the service worker hasn&rsquo;t actually done anything useful yet: it still can&rsquo;t respond to requests.</p>
+<h3 id=working-as-a-cache>Working as a cache</h3>
+<p>To act as a cache in between requests and the Internet, the service worker needs to register to receive and process <code>onfetch</code> events.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=nx>self</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;fetch&#39;</span><span class=p>,</span> <span class=kd>function</span><span class=p>(</span><span class=nx>event</span><span class=p>)</span> <span class=p>{</span>
+  <span class=nx>event</span><span class=p>.</span><span class=nx>respondWith</span><span class=p>(</span>
+    <span class=nx>caches</span><span class=p>.</span><span class=nx>open</span><span class=p>(</span><span class=nx>CACHE</span><span class=p>).</span><span class=nx>then</span><span class=p>(</span><span class=nx>cache</span> <span class=p>=&gt;</span> <span class=p>{</span>
+      <span class=k>return</span> <span class=nx>promiseAny</span><span class=p>([</span>
+        <span class=nx>cache</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=nx>event</span><span class=p>.</span><span class=nx>request</span><span class=p>).</span><span class=nx>then</span><span class=p>(</span><span class=nx>response</span> <span class=p>=&gt;</span> <span class=p>{</span>
+          <span class=k>if</span><span class=p>(</span><span class=nx>response</span><span class=p>)</span> <span class=p>{</span>
+            <span class=k>return</span> <span class=nb>Promise</span><span class=p>.</span><span class=nx>resolve</span><span class=p>(</span><span class=nx>response</span><span class=p>);</span>
+          <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+            <span class=k>return</span> <span class=nb>Promise</span><span class=p>.</span><span class=nx>reject</span><span class=p>(</span><span class=s1>&#39;not in cache&#39;</span><span class=p>);</span>
+          <span class=p>}</span>
+        <span class=p>}),</span>
+        <span class=nx>fetch</span><span class=p>(</span><span class=nx>event</span><span class=p>.</span><span class=nx>request</span><span class=p>.</span><span class=nx>clone</span><span class=p>()).</span><span class=nx>then</span><span class=p>(</span><span class=nx>response</span> <span class=p>=&gt;</span> <span class=p>{</span>
+          <span class=k>if</span><span class=p>(</span><span class=nx>response</span><span class=p>)</span> <span class=p>{</span>
+            <span class=k>if</span><span class=p>(</span><span class=nx>response</span><span class=p>.</span><span class=nx>status</span> <span class=o>&lt;</span> <span class=mi>400</span><span class=p>)</span> <span class=p>{</span>
+              <span class=nx>cache</span><span class=p>.</span><span class=nx>put</span><span class=p>(</span><span class=nx>event</span><span class=p>.</span><span class=nx>request</span><span class=p>,</span> <span class=nx>response</span><span class=p>.</span><span class=nx>clone</span><span class=p>());</span>
+            <span class=p>}</span>
+            <span class=k>return</span> <span class=nb>Promise</span><span class=p>.</span><span class=nx>resolve</span><span class=p>(</span><span class=nx>response</span><span class=p>);</span>
+          <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+            <span class=k>return</span> <span class=nb>Promise</span><span class=p>.</span><span class=nx>reject</span><span class=p>(</span><span class=s1>&#39;network request failed&#39;</span><span class=p>);</span>
+          <span class=p>}</span>
+        <span class=p>}),</span>
+      <span class=p>],</span> <span class=nx>cache</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=s2>&#34;/offline/index.html&#34;</span><span class=p>));</span>
+    <span class=p>})</span>
+  <span class=p>);</span>
+<span class=p>});</span>
+</code></pre></div><p>Here, the code attempts to do two separate things.
+It tries to simultaneously request a cache hit and resources from the network.
+Again, we respond to the event with a collection of promises chained together to provide the functionality we want.</p>
+<p>We open the cache again, just like before, and then pass two separate promises through a call to <code>promiseAny()</code>.
+This is a function I (shamelessly) <a href=https://jakearchibald.com/2014/offline-cookbook/#cache-network-race>stole</a> from the above linked article that returns a Promise.
+This Promise resolves with the first resolved Promise, and rejects if both reject.</p>
+<p>In this case, the two Promises passed into <code>promiseAny()</code> are calls to <code>fetch()</code> and <code>cache.match()</code>.
+<code>fetch()</code> is from the new <a href=https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API>Fetch API</a> exposed by javascript designed to replace the XMLHttpRequest syntax with one based around Promises.
+The Promise returned from <code>fetch()</code> is transformed with <code>.then()</code> into another promise that checks if the response is not undefined, rejecting if it is, and then adds the response to the cache for future use with <code>cache.put()</code>.
+This way, any requests are automatically added to the cache, allowing the page to respond incredibly fast in case the user navigates to a page visited before.</p>
+<p>The other Promise, the call to <code>cache.match()</code>, is the killer.
+Here, we check to see if the Request has been cached by the service worker.
+If it has, immediately respond to the user with that data.
+It might be stale, but being a blog, stuff doesn&rsquo;t change that much.
+I want to figure out a way to bypass the cache after a certain time period, but I&rsquo;m working on it.
+The other thing the cache Promise chain does is check if the response is not an error.
+Caching a 404 error page is a bad idea, because now all the user will see when they navigate to that url (even if the page now exists) is a 404 error, until the cache is replaced.</p>
+<p>The nice thing about this setup is that the network and the cache are racing to respond first.
+If the disk is slow and the network is fast, the request to the internet will hit the user first.
+If it&rsquo;s the other way around, the user will get a response from the cache.
+Whichever happens, the user gets the fastest possible response.
+Another benefit is that the cache is updated after every request.
+No data is saved (another possibility with service workers) but time is reduced to be imperceptible if loading a cached resource.</p>
+<p>You might have noticed the second argument to <code>promiseAny()</code>, which is a generic fallback.
+This&rsquo;ll be expanded in the future to include fallbacks for different types of media, but right now it responds with a general &lsquo;offline&rsquo; page in the case that the network is not responding and the cache has nothing.
+It&rsquo;s nice to have this functionality so I can tell the user their exact situation instead of an obscure error about some Promise being rejected.</p>
+<h2 id=reducing-processing>Reducing processing</h2>
+<p>The biggest speed up is probably gained by using a static site instead of a server-side blogging platform.
+The entire site is html, css, and some non-DOM-altering javascript, so it&rsquo;s very quick to paint once received.
+There is no php processing to be done before sending the client the files, and no client-side processing to show them.</p>
+<p>It actually feels a little nice to go back to web basics.
+I&rsquo;m working on a complicated Rust backend and Elm frontend website and while it&rsquo;s fun, it&rsquo;s complicated.
+Elm is fairly new to me, and while I&rsquo;m a little more experienced with Rust I&rsquo;ve never designed and built a server backend before.
+In addition, due to using an entirely javascript-based DOM, it&rsquo;s way more complicated from download to first paint than this webpage.</p>
+<p>Anyways, this website is simply a few files.
+Nothing to do before sending them to the user, so it&rsquo;s speedy quick.</p>
+<h2 id=conclusions>Conclusions</h2>
+<p>Making a speedy site isn&rsquo;t hard, but it includes some sacrifices.
+No hero images or fancy pure functions to encode my virtual DOM.</p>
+<p>I don&rsquo;t have the experience or expertise to denounce those trends, and I don&rsquo;t intend to.
+Pupil&rsquo;s website has both.
+However, it is nice to see what I can build simply with some html and css and google skills.
+An exercise in minimalism.</p>
+<p>Of course, there are many more things I can do to make this page faster.
+I&rsquo;m hosting this on Gitlab Pages, so I don&rsquo;t actually have control over the server caching rules or headers.
+Some nginx reverse proxy would allow me to do more specialized stuff to increase speed, but that&rsquo;ll have to wait for another time.</p>
+<p>All in all, it&rsquo;s been fun to make this site, and I&rsquo;ve learned a lot.</p>
+</article>
+<div>
+Next: <a class=next href=https://cgm616.me/2019/02/on-the-failure-of-gov-kasichs-message/> On the Failure of Gov. Kasich's Message</a>
+</div>
+</div><footer>
+(c) 2017-2019 cgm616
+</footer></body>
+</html>
