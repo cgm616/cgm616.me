@@ -335,7 +335,7 @@ I wonder if we can animate our faux audio data as if it were coming in real time
 <span class=n>signal2</span> <span class=o>=</span> <span class=mf>0.5</span><span class=o>*</span><span class=n>sin</span><span class=o>.</span><span class=p>(</span><span class=mi>200</span><span class=o>*</span><span class=n>t2</span><span class=p>)</span> <span class=o>+</span> <span class=mf>0.2</span><span class=o>*</span><span class=n>sin</span><span class=o>.</span><span class=p>(</span><span class=mi>445</span><span class=o>*</span><span class=n>t2</span><span class=p>)</span> <span class=o>-</span> <span class=mf>0.3</span><span class=o>*</span><span class=n>sin</span><span class=o>.</span><span class=p>(</span><span class=mi>672</span><span class=o>*</span><span class=n>t2</span><span class=p>);</span>
 
 <span class=n>buf</span> <span class=o>=</span> <span class=n>SampledSignals</span><span class=o>.</span><span class=n>SampleBuf</span><span class=p>(</span><span class=n>signal2</span><span class=p>,</span> <span class=mi>44100</span><span class=p>)</span>
-</code></pre></div><audio controls>
+</code></pre></div><audio style=width:100% controls>
 <source src=https://cgm616.me/2020/09/learning-julia/audio.wav>
 Your broswer does not support audio playback.
 </audio>
