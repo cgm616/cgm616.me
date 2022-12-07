@@ -1,1 +1,0 @@
-"use strict";var CACHE="cache";'serviceWorker'in navigator&&navigator.serviceWorker.register('/sw.js',{scope:'/'}).then(function(a){console.log('Registration succeeded. Scope is '+a.scope)}).catch(function(a){console.log('Registration failed with '+a)})
