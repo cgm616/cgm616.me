@@ -1,6 +1,9 @@
 {{ define "main" }}
 
+{{- partial "breadcrumbs.html" . -}}
+
 <article>
+    <h1>{{ .Title }}</h1>
     {{ .Content }}
 </article>
 

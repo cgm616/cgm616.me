@@ -1,0 +1,38 @@
+{{ define "main" }}
+
+{{- partial "breadcrumbs.html" . -}}
+
+<article>
+    <div class="article-head">
+        <h1>{{ .Title }}</h1>
+        <div class="article-metadata">
+            {{- partial "article-metadata.html" . -}}
+        </div>
+    </div>
+
+    <div>
+    <details class="article-toc">
+        <summary>Table of Contents</summary>
+        {{ .TableOfContents }}
+    </details>
+    </div>
+
+    <div class="article-body">
+        {{ .Content }}
+    </div>
+
+</article>
+
+<nav class="article-ring">
+    <p>Want to read another article? Go back to <a href="/writing/">writing</a> or try:</p>
+    <ul>
+    {{ with .PrevInSection }}
+        <li>Previous: <a class="previous" href="{{.Permalink}}"> {{.Title}}</a></li>
+    {{ end }}
+    {{ with .NextInSection }}
+        <li>Next: <a class="next" href="{{.Permalink}}"> {{.Title}}</a></li>
+    {{ end }}
+    </ul>
+</nav>
+
+{{ end }}

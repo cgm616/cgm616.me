@@ -1,0 +1,25 @@
+{{ define "main" }}
+    {{- partial "breadcrumbs.html" . -}}
+
+    <main>
+        <article>
+            <h1>{{ .Title }}</h1>
+            {{ .Content }}
+            
+        </article>
+        <ul class="content-list-b">
+            {{ range .Pages }}
+                <li><a href="{{ .RelPermalink }}">
+                    <h2>{{ .LinkTitle }}</h2>
+                    <p>{{ .Summary }}</p>
+
+                    </a>
+                    <div class="content-list-meta">
+                        {{- partial "article-metadata.html" . -}}
+                    </div>
+                </li>
+            {{ end }}
+        </ul>
+    </main>
+{{ end }}
+

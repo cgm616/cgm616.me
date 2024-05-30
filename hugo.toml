@@ -1,0 +1,60 @@
+# Settings
+baseURL = "https://cgm616.me/"
+languageCode = "en-US"                  # or en-US
+title = "CGM"
+description = "Cole's personal website"
+theme = ["hugo-redirect", "basic"]
+canonifyURLs = true
+copyright = "Cole Graber-Mitchell"
+enableRobotsTXT = true
+enableGitInfo = true
+pygmentsUseClasses = true
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[minify]
+minifyOutput = true
+
+[sitemap]
+changefreq = "weekly"
+priority = 0.5
+
+[permalinks]
+posts = "/:year/:month/:slug/"
+page = "/:slug/"
+
+[taxonomies]
+tag = 'tags'
+
+[menu]
+[[menu.main]]
+weight = 10
+name = 'Home'
+pageRef = '/'
+url = '/'
+[[menu.main]]
+name = 'Writing'
+url = '/writing/'
+pageRef = 'writing'
+weight = 20
+[[menu.main]]
+name = 'Research'
+url = '/research/'
+pageRef = 'research'
+weight = 30
+[[menu.main]]
+name = 'Resume'
+url = '/resume/'
+pageRef = 'resume'
+weight = 40
+[[menu.main]]
+name = 'About'
+url = '/about/'
+pageRef = 'about'
+weight = 50
+[[menu.main]]
+name = 'Contact'
+url = '/contact'
+pageRef = 'contact'
+weight = 60
