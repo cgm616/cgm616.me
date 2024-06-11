@@ -505,7 +505,6 @@ article.writing>.article-body>p:last-child:after {
   color: var(--bg-color);
   background-color: var(--red-color);
   margin: 0 var(--space-3xs);
-  display: inline-block;
   float: right;
   clear: right;
 }
@@ -977,11 +976,10 @@ Resume
   max-width: 100%;
 
   h2 {
-    text-transform: uppercase;
     font-family: var(--font-secondary);
     font-size: var(--step--1);
     border-top: 1px solid var(--text-color);
-    font-weight: 300;
+    font-weight: 350;
     max-width: 100%;
     margin-top: var(--space-xl);
   }
@@ -997,13 +995,13 @@ Resume
     display: inline;
   }
 
-  h3+p+p {
-    margin-bottom: 0;
-    display: inline;
+  h3+p::after {
+    content: ", ";
   }
 
-  h3+p+p::before {
-    content: ', '
+  h3+p+p {
+    margin-bottom: 0;
+    display: inline-block;
   }
 
   p>em {
@@ -1023,7 +1021,7 @@ resume>* {
   max-width: 70ch;
 }
 
-@media screen and (min-width: 70rem) {
+@media screen and (min-width: 900px) {
   .resume {
     h3+p+p {
       float: right;
@@ -1033,7 +1031,7 @@ resume>* {
       display: block;
     }
 
-    h3+p+p::before {
+    h3+p::after {
       content: '';
     }
   }

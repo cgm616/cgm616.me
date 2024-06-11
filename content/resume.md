@@ -2,7 +2,7 @@
 title = 'Resume'
 +++
 
-> Download an up-to-date [pdf copy](/resume.pdf) of my resume.
+> You can either read my resumé below or download an up-to-date [pdf copy](/resume.pdf). If you'd prefer more of a narrative explanation of myself, read my [about page](/about/).
 
 ::: resume
 
@@ -174,7 +174,7 @@ May 2021
 
 ### Lethal Injection and the False Promise of Humane Execution
 
-Book with Stanford University Press.
+Book with Stanford University Press
 
 2022
 
@@ -182,7 +182,7 @@ Book with Stanford University Press.
 
 ### The Fate of Lethal Injection
 
-Article in the British Journal of American Legal Studies, 11(1).
+Article in the British Journal of American Legal Studies, 11(1)
 
 2021
 
@@ -191,7 +191,7 @@ Article in the British Journal of American Legal Studies, 11(1).
 
 ### All Rise for God
 
-Senior honors thesis at Amherst College, unpublished.
+Senior honors thesis at Amherst College, unpublished
 
 2022
 
