@@ -437,6 +437,10 @@ figure:has(.fullwidth) {
   max-width: 100%;
 }
 
+.fullwidth {
+  max-width: 100%;
+}
+
 figure:has(.portrait) {
   display: flex;
   flex-direction: row;
@@ -856,7 +860,6 @@ List page layout
 ***************************************/
 
 .content-list-c {
-  margin-top: var(--space-l);
 
   h2 {
     text-transform: none;
@@ -867,7 +870,8 @@ List page layout
   }
 
   p {
-    display: none;
+    text-decoration: none;
+    margin-bottom: var(--space-2xs);
   }
 
   .content-list-meta {
@@ -884,19 +888,23 @@ List page layout
       display: inline-block;
       list-style: none;
       margin-right: var(--space-s);
+      margin-left: 0;
     }
+  }
+
+  .content-list-author {
+    font-family: var(--font-secondary);
+    font-size: var(--step--1);
+    color: var(--dark-grey-color);
   }
 }
 
-.content-list-c>li {
+.content-list-c>li+li {
   margin-top: var(--space-m);
-  margin-bottom: var(--space-m);
-  /*
-  border-radius: 5px;
-  transition: background-position 0.3s linear;
-  background-size: 200% 100%;
-  background-image: linear-gradient(to right, var(--bg-color) 50%, var(--yellow-color) 50%);
-  */
+}
+
+.content-list-c>li {
+  margin-left: 0;
 }
 
 /*
@@ -958,6 +966,77 @@ List page layout
 .content-list-b>li>a {
   text-decoration: none;
   display: block;
+}
+
+/***************************************
+Resume
+***************************************/
+
+.resume {
+  margin-top: var(--space-xl);
+  max-width: 100%;
+
+  h2 {
+    text-transform: uppercase;
+    font-family: var(--font-secondary);
+    font-size: var(--step--1);
+    border-top: 1px solid var(--text-color);
+    font-weight: 300;
+    max-width: 100%;
+    margin-top: var(--space-xl);
+  }
+
+  h3 {
+    margin-bottom: var(--space-3xs);
+    font-style: normal;
+  }
+
+  h3+p {
+    font-style: italic;
+    margin-bottom: 0;
+    display: inline;
+  }
+
+  h3+p+p {
+    margin-bottom: 0;
+    display: inline;
+  }
+
+  h3+p+p::before {
+    content: ', '
+  }
+
+  p>em {
+    font-style: normal;
+    font-variant-caps: small-caps;
+  }
+
+  li {
+    margin-left: var(--space-m);
+    font-size: var(--step--1);
+    max-width: 70rem;
+  }
+
+}
+
+resume>* {
+  max-width: 70ch;
+}
+
+@media screen and (min-width: 70rem) {
+  .resume {
+    h3+p+p {
+      float: right;
+      clear: both;
+      margin-top: calc(-1 * (var(--space-3xs) + var(--step-1)));
+      max-width: 100%;
+      display: block;
+    }
+
+    h3+p+p::before {
+      content: '';
+    }
+  }
 }
 
 /***************************************

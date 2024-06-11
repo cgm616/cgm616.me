@@ -1,0 +1,27 @@
+{{ define "main" }}
+    {{- partial "breadcrumbs.html" . -}}
+
+    <main>
+        <article id="top">
+            <h1>{{ .Title }}</h1>
+            {{ .Content }}
+            <hr />
+        
+        <ul class="content-list-c">
+            {{ range .Pages }}
+                <li>
+                    <h2><a href="{{ .Params.link }}">{{ .LinkTitle }}</a></h2>
+                    {{ .Summary }}
+                    <p class="content-list-author">
+                        {{ with .Params.authors }}By {{ range . }}{{ . }}{{ end }}{{ end }}{{ with .Params.publication }} in <em>{{ . }}</em>{{ end }}{{ with .Params.linkdate }} on {{ time.Format "Jan 2, 2006" . }}{{ end }}.
+                    </p>
+                </li>
+            {{ end }}
+        </ul>
+        </article>
+    </main>
+
+    {{- partial "blurb.html" . -}}
+    <a href="{{ .Permalink }}/#top" class="to-top">Back to top</a>
+{{ end }}
+

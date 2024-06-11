@@ -2,24 +2,25 @@
     {{- partial "breadcrumbs.html" . -}}
 
     <main>
-        <article>
+        <article id="top">
             <h1>{{ .Title }}</h1>
             {{ .Content }}
-            
-        </article>
-        <ul class="content-list-c">
+            <hr />
+            <ul class="content-list-c">
             {{ range .Pages }}
-                <li><a href="{{ .RelPermalink }}">
-                    <h2>{{ .LinkTitle }}</h2>
-                    <p>{{ .Summary }}</p>
-
-                    </a>
+                <li>
+                    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
                     <div class="content-list-meta">
                         {{- partial "article-metadata.html" . -}}
                     </div>
                 </li>
             {{ end }}
         </ul>
+        </article>
+        
     </main>
+
+    {{- partial "blurb.html" . -}}
+    <a href="{{ .Permalink }}/#top" class="to-top">Back to top</a>
 {{ end }}
 

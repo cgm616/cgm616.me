@@ -24,6 +24,6 @@ I enjoy reading fiction (especially fantasy, science fiction, and historical fic
 
 I like to make and look at art; print-making in particular excites me. Whenever possible, I try to hand-make linocut cards for special occasions. Design, calligraphy, and typography similarly capture my attention; I have a deeply nerdy passion for document formatting.
 
-![Working in Amherst College's science center.](/images/about/topdown.jpg)
+![Working in Amherst College's science center.](/images/about/topdown.jpg){ .fullwidth }
 
 
