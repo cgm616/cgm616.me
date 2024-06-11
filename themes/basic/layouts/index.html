@@ -2,11 +2,24 @@
 
 <article class="intro">{{ .Content }}</article>
 
+{{- with index site.Menus "index" }}
 <div class="promo">
-    <div class="promo-card"></div>
-    <div class="promo-card"></div>
-    <div class="promo-card"></div>
-    <div class="promo-card"></div>
+    {{- range . }}
+    <div class="promo-card">
+        <div class="inner">
+            {{- with .Params.side }}
+            <div class="card-side"><img src="{{ . }}"/></div>
+            {{- end }}
+            <div>
+                <h2>{{ .Name }}</h2>
+                <p>{{ .Params.text }}</p>
+                <a href="{{ .URL }}">{{ .Params.more }}</a>
+            </div>
+        </div>
+    </div>
+    {{- end }}
 </div>
+{{- end }}
+
 
 {{ end }}
