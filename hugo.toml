@@ -17,7 +17,7 @@ defaultMarkdownHandler = "pandoc"
 unsafe = true
 
 [security.exec]
-allow = ["pandoc"]
+allow = ["pandoc", "bin/pandoc"]
 
 [minify]
 minifyOutput = true

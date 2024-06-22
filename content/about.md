@@ -2,7 +2,7 @@
 title: About me
 ---
 
-![In Krakow, Poland.](/images/about/headshot5.jpg){ .margin }
+![In Krakow, Poland.](/images/square-headshot.jpg){ .margin }
 
 My name is Cole Graber-Mitchell. I live in London, where I'm a master's student at SOAS, University of London. I study how we can live together despite difference. I believe that living better, more joyful lives is possible, but only if we work together to change our society. Through organizing and advocacy, I work on that change.
 
@@ -16,6 +16,8 @@ I grew up in Minneapolis, Minnesota, where I played kick-the-can in the street, 
 
 I left Minnesota to go to Amherst College in Western Massachusetts. The college had fewer students than my high school and the town had a twentieth of the population of the Twin Cities, but I quickly fell in love with the place and its people. I spent four years there, majoring in Math and Law, Jurisprudence, and Social Thought but also taking classes in art, history, political science, computer science, and Arabic. Besides classes, I also sang in Amherst's Glee Club, participated in various roles in student theater, volunteered on a town committee, and worked for the math department.
 
+![Working in Amherst College's science center.](/images/about/topdown.jpg)
+
 After college, I moved to London on a Marshall Scholarship to complete two master's degrees. First, I studied Anthropology at the London School of Economics and Political Science (LSE). Now, I'm studying Law at SOAS, University of London. If you're more curious about my academic work, you should check out my [research](/research/).
 
 In London, I've sung with the LSE Choir, seen countless plays on student discounts, read more Jane Austen than I ever had before, and hiked through England, Wales, and Scotland. I've also learned to love pub quizzes, the wide variety of British accents, and the British train system, as frequently delayed as it is.
@@ -24,6 +26,8 @@ I enjoy reading fiction (especially fantasy, science fiction, and historical fic
 
 I like to make and look at art; print-making in particular excites me. Whenever possible, I try to hand-make linocut cards for special occasions. Design, calligraphy, and typography similarly capture my attention; I have a deeply nerdy passion for document formatting.
 
-![Working in Amherst College's science center.](/images/about/topdown.jpg){ .fullwidth }
+## In the media
+
+- *The Amherst Student* wrote a [profile of me](https://amherststudent.com/article/cole-graber-mitchell-making-his-voice-heard/) when I graduated.
 
 
