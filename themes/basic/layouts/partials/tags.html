@@ -1,3 +1,0 @@
-{{ $taxonomy := "tags" }} {{ with .Param $taxonomy }}
-                <li><span class="article-metadata-name">Tags: </span>
-                {{ range $index, $tag := . }}{{ with $.Site.GetPage (printf "/%s/%s" $taxonomy $tag) -}}{{ if $index }}, {{ end }}<a href="{{ .Permalink }}">{{ $tag | urlize }}</a>{{- end -}}{{- end -}}</li>{{ end }}

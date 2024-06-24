@@ -1,0 +1,11 @@
+{
+    "title": "CGM",
+    "url": "https://localhost:8080",
+    "language": "en",
+    "description": "Cole's personal website",
+    "author": {
+        "name": "Cole Graber-Mitchell",
+        "email": "website@cgm616.me"
+    },
+    "feedUrl": "https://cgm616.me/feed.xml"
+}

@@ -2,4 +2,6 @@
 *.swp
 public/
 **/*.swo
-.hugo_build.lock
+_site
+node_modules/
+**/*.*_original
