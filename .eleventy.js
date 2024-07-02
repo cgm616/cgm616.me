@@ -1,5 +1,6 @@
 /* plugins */
 const eleventyNavigationPlugin = require('@11ty/eleventy-navigation');
+const Image = require('@11ty/eleventy-img');
 
 const markdownIt = require('markdown-it');
 const markdownItFootnote = require('markdown-it-footnote');
@@ -128,18 +129,9 @@ module.exports = function (eleventyConfig) {
   /* files that need to be copied to the build folder  */
   /*===================================================*/
 
+  // `src/_static` is for static files
+  // `src/assets` is for files that need to be processed
   eleventyConfig.addPassthroughCopy({ "src/_static": "./" });
-
-
-  /*
-  eleventyConfig.addPassthroughCopy('./src/assets/social-image.jpg')
-  eleventyConfig.addPassthroughCopy('./src/assets/icons')
-  eleventyConfig.addPassthroughCopy('./src/assets/sprite.svg')
-  eleventyConfig.addPassthroughCopy({
-      'node_modules/svg-icon-sprite/dist/svg-icon-sprite.js': 'assets/svg-icon-sprite.js'
-  })
-  */
-
 
   /*=================*/
   /*     Layouts     */
@@ -149,8 +141,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addLayoutAlias('article', 'layouts/article')
   eleventyConfig.addLayoutAlias('index', 'layouts/index')
   eleventyConfig.addLayoutAlias('list', 'layouts/list')
-
-
 
   /*=================*/
   /*   Collections   */
@@ -173,10 +163,95 @@ module.exports = function (eleventyConfig) {
   /*=================*/
   /*    shortcodes   */
   /*=================*/
-  /*
-  eleventyConfig.addNunjucksAsyncShortcode('image', imageShortcode)
-  */
 
+  // Much of image shortcode taken from:
+  // https://www.aleksandrhovhannisyan.com/blog/eleventy-image-plugin/
+  const imageShortcode = async (
+    args
+  ) => {
+    let src = args.src;
+    let alt = args.alt;
+    let caption = args.caption;
+    let title = args.title;
+    let className = args.className;
+    // TODO: better way of handling these things
+    let widths = args.widths || [400, 800, 1240];
+    let formats = args.formats || ['webp', 'jpeg'];
+    let sizes = args.sizes || '96vw';
+
+    // Process images
+    const imageMetadata = await Image(src, {
+      widths: [...widths, null],
+      formats: [...formats, null],
+      outputDir: '_site/images',
+      urlPath: '/images',
+      filenameFormat: function (hash, src, width, format, _options) {
+        const { name } = path.parse(src);
+        return `${name}-${hash}-${width}.${format}`;
+      }
+    });
+
+    console.log(imageMetadata);
+
+    // Build source tags
+    const sourceHtmlString = Object.values(imageMetadata)
+      // Map each format to the source HTML markup
+      .map((images) => {
+        // The first image's sourceType is the same as those of all other images
+        // belonging to this format (e.g., image/webp).
+        const { sourceType } = images[0];
+
+        // Use our util from earlier to make our lives easier
+        const sourceAttributes = stringifyAttributes({
+          type: sourceType,
+          // srcset needs to be a comma-separated attribute
+          srcset: images.map((image) => image.srcset).join(', '),
+          sizes,
+        });
+
+        // Return one <source> per format
+        return `<source ${sourceAttributes}>`;
+      })
+      .join('\n');
+
+    // Build img tag
+    const getLargestImage = (format) => {
+      const images = imageMetadata[format];
+      return images[images.length - 1];
+    }
+
+    const largestUnoptimizedImg = getLargestImage(formats[1]);
+
+    const imgAttributes = stringifyAttributes({
+      src: largestUnoptimizedImg.url,
+      width: largestUnoptimizedImg.width,
+      height: largestUnoptimizedImg.height,
+      alt: alt,
+      title: title,
+      loading: 'lazy',
+      decoding: 'async',
+    });
+
+    const imgHtmlString = `<img ${imgAttributes}>`;
+
+    const pictureAttributes = stringifyAttributes({
+      class: className,
+    });
+
+    const picture = `<picture ${pictureAttributes}>${sourceHtmlString}${imgHtmlString}</picture>`;
+
+    if (caption) {
+      return `<figure>${picture}<figcaption>${caption}</figcaption></figure>`;
+    } else {
+      return `<figure>${picture}</figure>`;
+    }
+  };
+
+  eleventyConfig.addShortcode('image', imageShortcode);
+
+  /*=================*/
+  /*    general config      */
+  /*=================*/
   return {
     dir: {
       input: 'src',
@@ -187,3 +262,16 @@ module.exports = function (eleventyConfig) {
     markdownTemplateEngine: 'njk'
   }
 }
+
+/** Maps a config of attribute-value pairs to an HTML string
+ * representing those same attribute-value pairs.
+ * https://www.aleksandrhovhannisyan.com/blog/eleventy-image-plugin/
+ */
+const stringifyAttributes = (attributeMap) => {
+  return Object.entries(attributeMap)
+    .map(([attribute, value]) => {
+      if (typeof value === 'undefined') return '';
+      return `${attribute}="${value}"`;
+    })
+    .join(' ');
+};

@@ -29,7 +29,7 @@ That's what **cgm616.me** is: a place to put my contributions to the web without
 
 Before this redesign, my website looked like this:
 
-![My website homepage from 2017 to 2024.](old-website-2892x1796.png)
+{% image src="src/assets/images/old-website.png", alt="An outdated, ugly website, with ASCII art for the header.", caption="My website homepage from 2017 to 2024.", title="The content is updated; the look is not." %}
 
 I designed it when I was 17 and it didn't fit me very well anymore. I decided to dust off my HTML and CSS skills — no JS in this website — and see if I could do better.
 
