@@ -314,6 +314,7 @@ function useImage(src, alt, caption, title, className = "", width, height, width
     style: styles,
     loading: 'lazy',
     decoding: 'async',
+    class: className,
   });
 
   const imgHtmlString = `<img ${imgAttributes}>`;

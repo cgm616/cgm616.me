@@ -6,7 +6,7 @@ eleventyNavigation:
   order: 50
 ---
 
-![In Krakow, Poland.](/images/square-headshot.jpg){ .margin }
+![In Krakow, Poland.](/assets/images/headshot5.jpg "It's the castle."){.margin alt="A portrait of Cole wearing a heavy wool coat in front of a snowy building."}
 
 My name is Cole Graber-Mitchell. I live in London, where I'm a master's student at SOAS, University of London. I study how we can live together despite difference. I believe that living better, more joyful lives is possible, but only if we work together to change our society. Through organizing and advocacy, I work on that change.
 
@@ -20,7 +20,7 @@ I grew up in Minneapolis, Minnesota, where I played kick-the-can in the street, 
 
 I left Minnesota to go to Amherst College in Western Massachusetts. The college had fewer students than my high school and the town had a twentieth of the population of the Twin Cities, but I quickly fell in love with the place and its people. I spent four years there, majoring in Math and Law, Jurisprudence, and Social Thought but also taking classes in art, history, political science, computer science, and Arabic. Besides classes, I also sang in Amherst's Glee Club, participated in various roles in student theater, volunteered on a town committee, and worked for the math department.
 
-![Working in Amherst College's science center.](/images/about/topdown.jpg)
+![Hard at work.](/assets/images/about/topdown.jpg "Crossword courtesy of The Amherst Student."){alt="A top-down view of Cole, wearing a blue crew-neck sweater, in a colorful, modern, and spacious room. He is sitting at a table in front of an open computer, an open notebook, and a newspaper turned to the crossword page."}
 
 After college, I moved to London on a Marshall Scholarship to complete two master's degrees. First, I studied Anthropology at the London School of Economics and Political Science (LSE). Now, I'm studying Law at SOAS, University of London. If you're more curious about my academic work, you should check out my [research](/research/).
 
