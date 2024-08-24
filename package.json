@@ -19,7 +19,7 @@
     "browserslist": "^4.23.1",
     "lightningcss": "^1.25.1",
     "markdown-it": "^14.1.0",
-    "markdown-it-attrs": "^4.1.6",
+    "markdown-it-attrs": "git://github.com/cgm616/markdown-it-attrs.git#fix-duplicate-attr",
     "markdown-it-div": "^1.1.0",
     "markdown-it-footnote": "^4.0.0"
   }

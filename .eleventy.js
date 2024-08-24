@@ -41,48 +41,6 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
 
-  /*================================*/
-  /*   markdown options   */
-  /*================================*/
-
-  let md = markdownIt({
-    html: true,
-    breaks: true,
-    typographer: true,
-  })
-    .use(markdownItFootnote)
-    .use(markdownItAttrs)
-    .use(markdownItDiv);
-
-  // need to eliminate:
-  // - render_footnote_block_open
-  // - render_footnote_block_close
-  // - render_footnote_open
-  // - render_footnote_close
-  // - render_footnote_anchor
-  // -
-
-  /*
-<label for="sn-extensive-use-of-sidenotes" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-extensive-use-of-sidenotes" class="margin-toggle"/><span class="sidenote">This is a sidenote.</span>
-  */
-
-  function render_footnote_ref_tufte(tokens, idx, options, env, slf) {
-    const id = slf.rules.footnote_anchor_name(tokens, idx, options, env, slf);
-    // const caption = slf.rules.footnote_caption(tokens, idx, options, env, slf);
-
-    let note = env.footnotes.list[id - 1];
-    console.log(note);
-
-    let rendered = slf.render(note.tokens, options, env);
-    console.log(rendered);
-
-    // `<sup class="footnote-ref"><a href="#fn${id}" id="fnref${refid}">${caption}</a></sup>`
-    return `<label for="sn-${id}" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-${id}" class="margin-toggle"/><span class="sidenote">${rendered}</span>`
-  }
-
-  md.renderer.rules.footnote_ref = render_footnote_ref_tufte;
-
-  eleventyConfig.setLibrary('md', md);
   /*
   eleventyConfig.addPlugin(pluginRss)
 
@@ -92,6 +50,74 @@ module.exports = function (eleventyConfig) {
     excerpt_alias: 'excerpt'
   })
   */
+
+  /*================================*/
+  /*   markdown options   */
+  /*================================*/
+
+  // Set up markdown-it
+  let md = markdownIt({
+    html: true,
+    breaks: true,
+    typographer: true,
+  })
+    .use(markdownItFootnote)
+    .use(markdownItAttrs)
+    .use(markdownItDiv);
+
+  // Make markdown-it-footnote output TufteCSS-compatible notes
+  md.renderer.rules.footnote_ref = (tokens, idx, options, env, slf) => {
+    const id = slf.rules.footnote_anchor_name(tokens, idx, options, env, slf);
+
+    let note = env.footnotes.list[id - 1];
+    let rendered = slf.render(note.tokens, options, env);
+
+    return `<label for="sn-${id}" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-${id}" class="margin-toggle"/><span class="sidenote">${rendered}</span>`
+  };
+
+
+  // Save previously-set image renderer
+  let defaultImageRender = md.renderer.rules.image || function (tokens, idx, options, env, self) {
+    return self.renderToken(tokens, idx, options);
+  };
+
+  // Replace the image renderer
+  md.renderer.rules.image = function (tokens, idx, options, env, self) {
+    const token = tokens[idx];
+    console.log(token);
+    let renderedCaption = self.render(token.children, options, env);
+    console.log(renderedCaption);
+    let src = token.attrGet('src');
+    const title = token.attrGet('title') || "";
+    const alt = token.attrGet('alt') || ""; // TODO: fix alt text not working right!
+    const classes = token.attrGet('class') || "";
+    const width = token.attrGet('width');
+    const height = token.attrGet('height');
+    const widths = token.attrGet('widths');
+    const formats = token.attrGet('formats');
+    const sizes = token.attrGet('sizes');
+    const styles = token.attrGet('style');
+
+    if (src.startsWith('/assets')) {
+      src = 'src' + src
+    }
+
+    console.log("running processing");
+    let html = useImage(src, alt, renderedCaption, title, classes, width, height, widths, formats, sizes, styles);
+    console.log("ran processing");
+
+    return html;
+  }
+
+  // Get ride of footnote separator
+  let fn_block_open = md.renderer.rules.footnote_block_open;
+  md.renderer.rules.footnote_block_open = (tokens, idx, options, env, slf) => {
+    return fn_block_open(tokens, idx, options, env, slf)
+      .replace(options.xhtmlOut ? '<hr class="footnotes-sep" />\n' : '<hr class="footnotes-sep">\n', '');
+  }
+
+  // Add altered markdown-it as markdown library
+  eleventyConfig.setLibrary('md', md);
 
   /*===================================================*/
   /* CSS processing  */
@@ -112,8 +138,6 @@ module.exports = function (eleventyConfig) {
       let targets = browserslistToTargets(browserslist("> 0.2%, last 2 versions, Firefox ESR, not dead"));
 
       return async () => {
-        // Switch to the `transform` function if you don't
-        // plan to use `@import` to merge files
         let { code } = await bundleAsync({
           filename: inputPath,
           minify: true,
@@ -169,82 +193,7 @@ module.exports = function (eleventyConfig) {
   const imageShortcode = async (
     args
   ) => {
-    let src = args.src;
-    let alt = args.alt;
-    let caption = args.caption;
-    let title = args.title;
-    let className = args.className;
-    // TODO: better way of handling these things
-    let widths = args.widths || [400, 800, 1240];
-    let formats = args.formats || ['webp', 'jpeg'];
-    let sizes = args.sizes || '96vw';
-
-    // Process images
-    const imageMetadata = await Image(src, {
-      widths: [...widths, null],
-      formats: [...formats, null],
-      outputDir: '_site/images',
-      urlPath: '/images',
-      filenameFormat: function (hash, src, width, format, _options) {
-        const { name } = path.parse(src);
-        return `${name}-${hash}-${width}.${format}`;
-      }
-    });
-
-    console.log(imageMetadata);
-
-    // Build source tags
-    const sourceHtmlString = Object.values(imageMetadata)
-      // Map each format to the source HTML markup
-      .map((images) => {
-        // The first image's sourceType is the same as those of all other images
-        // belonging to this format (e.g., image/webp).
-        const { sourceType } = images[0];
-
-        // Use our util from earlier to make our lives easier
-        const sourceAttributes = stringifyAttributes({
-          type: sourceType,
-          // srcset needs to be a comma-separated attribute
-          srcset: images.map((image) => image.srcset).join(', '),
-          sizes,
-        });
-
-        // Return one <source> per format
-        return `<source ${sourceAttributes}>`;
-      })
-      .join('\n');
-
-    // Build img tag
-    const getLargestImage = (format) => {
-      const images = imageMetadata[format];
-      return images[images.length - 1];
-    }
-
-    const largestUnoptimizedImg = getLargestImage(formats[1]);
-
-    const imgAttributes = stringifyAttributes({
-      src: largestUnoptimizedImg.url,
-      width: largestUnoptimizedImg.width,
-      height: largestUnoptimizedImg.height,
-      alt: alt,
-      title: title,
-      loading: 'lazy',
-      decoding: 'async',
-    });
-
-    const imgHtmlString = `<img ${imgAttributes}>`;
-
-    const pictureAttributes = stringifyAttributes({
-      class: className,
-    });
-
-    const picture = `<picture ${pictureAttributes}>${sourceHtmlString}${imgHtmlString}</picture>`;
-
-    if (caption) {
-      return `<figure>${picture}<figcaption>${caption}</figcaption></figure>`;
-    } else {
-      return `<figure>${picture}</figure>`;
-    }
+    return useImage(args.src, args.alt, args.caption, args.title, args.className, args.width, args.height, args.widths, args.formats, args.sizes);
   };
 
   eleventyConfig.addShortcode('image', imageShortcode);
@@ -275,3 +224,126 @@ const stringifyAttributes = (attributeMap) => {
     })
     .join(' ');
 };
+
+/** Handles image processing and markup creation for the image shortcode and
+ * markdown plugin.
+ */
+function useImage(src, alt, caption, title, className = "", width, height, widths, formats, sizes, styles) {
+  // We want to auto-generate the appropriate responsive settings based on the
+  // image and its style of display:
+  // - `portrait`:
+  // - `margin`: can be as wide as 307px, and below that, shrinks down to 94px
+  //    so want 100px, 200px, 400px, 800px, 1240px
+  // - `fullwidth`: can be as wide as 1240px, and below that, most of viewport
+  //    so want 400px, 800px, 1240px, 2480px, 3720px
+  // - none: can be as wide as 70ch (814px), and below that, most of viewport
+  //    so want 400px, 820px, 1240px, 1640px, 2480px
+
+  // Handle formats
+  formats = formats || ['webp', 'jpeg'];
+
+  console.log("1");
+
+  // Calculate sizes and widths
+  if (!widths) {
+    if (className.includes("portrait")) {
+      widths = [200, 400, 600, 820, 1240];
+      sizes = "(min-width: 1240px) 814px, 98vw";
+    } else if (className.includes("margin")) {
+      widths = [100, 200, 400, 820, 1240];
+      sizes = "(min-width: 1240px) 307px, 50vw";
+    } else if (className.includes("fullwidth")) {
+      widths = [400, 820, 1240, 1640, 2480, 3720];
+      sizes = "(min-width: 1240px) 1240px, 98vw"
+    } else {
+      widths = [400, 820, 1240, 1640, 2480];
+      sizes = "(min-width: 1240px) 814px, 98vw"
+    }
+  }
+
+  console.log("2");
+
+  let options = {
+    widths: [...widths, null],
+    formats: [...formats, null],
+    outputDir: '_site/images',
+    urlPath: '/images',
+    filenameFormat: function (hash, src, width, format, _options) {
+      const { name } = path.parse(src);
+      return `${name}-${hash}-${width}.${format}`;
+    }
+  };
+
+  console.log("3");
+  console.log(options);
+
+  // Process images asynchronously
+  Image(src, options);
+
+  console.log("4");
+
+  // Synchronously get image metadata
+  let imageMetadata = Image.statsSync(src, options);
+
+  console.log("5");
+
+  // Build source tags
+  const sourceHtmlString = Object.values(imageMetadata)
+    // Map each format to the source HTML markup
+    .map((images) => {
+      // The first image's sourceType is the same as those of all other images
+      // belonging to this format (e.g., image/webp).
+      const { sourceType } = images[0];
+
+      // Use our util from earlier to make our lives easier
+      const sourceAttributes = stringifyAttributes({
+        type: sourceType,
+        // srcset needs to be a comma-separated attribute
+        srcset: images.map((image) => image.srcset).join(', '),
+        sizes,
+      });
+
+      // Return one <source> per format
+      return `<source ${sourceAttributes}>`;
+    })
+    .join('\n');
+
+  console.log("6");
+
+  // Build img tag
+  const getLargestImage = (format) => {
+    const images = imageMetadata[format];
+    return images[images.length - 1];
+  }
+
+  console.log("7");
+
+  const largestUnoptimizedImg = getLargestImage(formats[1]);
+
+  const imgAttributes = stringifyAttributes({
+    src: largestUnoptimizedImg.url,
+    width: width || largestUnoptimizedImg.width,
+    height: height || largestUnoptimizedImg.height,
+    alt: alt,
+    title: title,
+    style: styles,
+    loading: 'lazy',
+    decoding: 'async',
+  });
+
+  console.log("8");
+
+  const imgHtmlString = `<img ${imgAttributes}>`;
+
+  const pictureAttributes = stringifyAttributes({
+    class: className,
+  });
+
+  const picture = `<picture ${pictureAttributes}>${sourceHtmlString}${imgHtmlString}</picture>`;
+
+  if (caption) {
+    return `<figure>${picture}<figcaption>${caption}</figcaption></figure>`;
+  } else {
+    return `<figure>${picture}</figure>`;
+  }
+}
