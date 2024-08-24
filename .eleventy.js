@@ -242,8 +242,6 @@ function useImage(src, alt, caption, title, className = "", width, height, width
   // Handle formats
   formats = formats || ['webp', 'jpeg'];
 
-  console.log("1");
-
   // Calculate sizes and widths
   if (!widths) {
     if (className.includes("portrait")) {
@@ -261,8 +259,6 @@ function useImage(src, alt, caption, title, className = "", width, height, width
     }
   }
 
-  console.log("2");
-
   let options = {
     widths: [...widths, null],
     formats: [...formats, null],
@@ -274,18 +270,11 @@ function useImage(src, alt, caption, title, className = "", width, height, width
     }
   };
 
-  console.log("3");
-  console.log(options);
-
   // Process images asynchronously
   Image(src, options);
 
-  console.log("4");
-
   // Synchronously get image metadata
   let imageMetadata = Image.statsSync(src, options);
-
-  console.log("5");
 
   // Build source tags
   const sourceHtmlString = Object.values(imageMetadata)
@@ -308,15 +297,11 @@ function useImage(src, alt, caption, title, className = "", width, height, width
     })
     .join('\n');
 
-  console.log("6");
-
   // Build img tag
   const getLargestImage = (format) => {
     const images = imageMetadata[format];
     return images[images.length - 1];
   }
-
-  console.log("7");
 
   const largestUnoptimizedImg = getLargestImage(formats[1]);
 
@@ -330,8 +315,6 @@ function useImage(src, alt, caption, title, className = "", width, height, width
     loading: 'lazy',
     decoding: 'async',
   });
-
-  console.log("8");
 
   const imgHtmlString = `<img ${imgAttributes}>`;
 
