@@ -4,36 +4,38 @@ on:
   push:
     branches:
       - master
+      - wip
   pull_request:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Git checkout
-        uses: actions/checkout@v2
-        with:
-          submodules: true
+      - uses: actions/checkout@v3
 
-      - name: Setup hugo
-        uses: peaceiris/actions-hugo@v2
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          hugo-version: 'latest'
+          node-version: "18"
 
-      - name: Cache modules
-        uses: actions/cache@v2
+      - name: Persist npm cache
+        uses: actions/cache@v3
         with:
-          path: /tmp/hugo_cache
-          key: ${{ runner.os }}-hugomod-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-hugomod-
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
 
-      - name: Build
-        run: hugo --gc --verbose --minify
+      - name: Persist Eleventy .cache
+        uses: actions/cache@v3
+        with:
+          path: ./.cache
+          key: ${{ runner.os }}-eleventy-fetch-cache
+
+      - run: npm install
+      - run: npm build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          cname: cgm616.me
+          publish_dir: ./_site
+          cname: colegm.com
