@@ -6,7 +6,7 @@
     "build": "npx @11ty/eleventy",
     "serve": "npx @11ty/eleventy --serve --incremental",
     "clean": "rm -rf _site",
-    "strip_photos": "exiftool -r -all= --icc_profile:all src/_static/images"
+    "strip_photos": "exiftool -r -all= --icc_profile:all src/assets/images"
   },
   "keywords": [],
   "author": "",

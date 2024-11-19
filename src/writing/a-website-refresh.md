@@ -1,5 +1,4 @@
 ---
-layout: article
 title : 'A Website Refresh'
 date: '2024-06-11T23:51:52+01:00'
 draft: false
