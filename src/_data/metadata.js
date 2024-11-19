@@ -1,14 +1,14 @@
 module.exports = function (configData) {
     let metadata = {
         "title": "CGM",
-        "url": "https://cgm616.me",
+        "url": "https://colegm.com",
         "language": "en",
         "description": "Cole's personal website",
         "author": {
             "name": "Cole Graber-Mitchell",
-            "email": "website@cgm616.me"
+            "email": "website@colegm.com"
         },
-        "feedUrl": "https://cgm616.me/feed.xml"
+        "feedUrl": "https://colegm.com/feed.xml"
     };
 
     let dev = {
