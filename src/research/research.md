@@ -1,9 +1,6 @@
 ---
 layout: page
 title: Research
-eleventyNavigation:
-  key: research
-  order: 30
 ---
 
 rl="http://dx.doi.org/10.2139/ssrn.4279915"

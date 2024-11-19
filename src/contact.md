@@ -1,14 +1,10 @@
 ---
 layout: page
-title: Contact
+title: Get in touch!
 eleventyNavigation:
   key: contact
   order: 60
 ---
 
-The best way to contact me is [emailing me](mailto:website@cgm616.me) at `website@cgm616.me`. If you want to encrypt your message, download my [public key](/pgp_key.asc).
+The best way to contact me is via Signal; my usename is `cole.06`. You can also [email me](mailto:website@colegm.com) at `website@colegm.com`. If you want to encrypt your message, download my [public key](/pgp_key.asc).
 
-You can also contact me using the following methods:
-
-- Phone number for calls or SMS: `+1 (413) 248-6639`
-- Telegram with username [cgm616](https://t.me/cgm616) (not recommended)

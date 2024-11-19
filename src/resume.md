@@ -7,17 +7,15 @@ eleventyNavigation:
   order: 40
 ---
 
-> You can either read my resumé below or download an up-to-date [pdf copy](/resume.pdf). If you'd prefer more of a narrative explanation of myself, read my [about page](/about/).
-
 ::: resume
 
 ## Education 
 
 ### SOAS, University of London
 
-MRes Law (in progress)
+MRes Law, *distinction*
 
-Expected Aug. 2024
+Sept. 2024
 
 - Dissertation on UK religious marital tribunals
 - Funded by a Marshall Scholarship
@@ -42,6 +40,15 @@ May 2022
 
 
 ## Professional Experience
+
+### Arizona Democratic Party
+
+Organizer
+
+Oct. – Nov. 2024
+
+- Talked to hundreds of voters about their key issues and how to vote
+- Recruited, trained, and managed volunteers
 
 ### Chandran Foundation
 
@@ -175,7 +182,7 @@ May 2021
 
 
 
-## Selected Works (see [research](/research/))
+## Selected Works
 
 ### Lethal Injection and the False Promise of Humane Execution
 
