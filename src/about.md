@@ -12,6 +12,3 @@ My name is Cole Graber-Mitchell. I now live in Oregon, but I grew up in Minneapo
 
 My activism and research has run the gamut. I've written about the death penalty, organized on a state attorney general campaign, knocked doors to talk about climate change, helped make local art more accessible, worked at polling places, and studied the intersection of law and religion. I've come to see it all as connected: each issue makes up some part of every other issue. Most importantly, I see these issues as *social* problems that require social and not technical solutions.
 
-> **I'm currently looking for work.** If you need someone to do research, organizing, policy, legal work, communications, or strategy for progressive causes, [reach out](/contact/). Here's [my resumé](/resume/); I'm willing to relocate anywhere.
-
-

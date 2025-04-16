@@ -41,6 +41,15 @@ May 2022
 
 ## Professional Experience
 
+### Everytown for Gun Safety
+
+Organizing Manager, Students Demand Action
+
+March 2024 – present
+
+- Help high school and college students become gun safety advocates
+- Work to advance priority legislation, build volunteer base, and educate the public to end gun violence
+
 ### Arizona Democratic Party
 
 Organizer
